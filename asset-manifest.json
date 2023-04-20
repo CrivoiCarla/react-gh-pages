@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/react-gh-pages/static/css/main.4ce17981.css",
-    "main.js": "/react-gh-pages/static/js/main.7a677757.js",
+    "main.js": "/react-gh-pages/static/js/main.639dbd07.js",
     "static/media/crash.png": "/react-gh-pages/static/media/crash.bcf3d38ffe4735b1c7ab.png",
     "static/media/rullete.jpg": "/react-gh-pages/static/media/rullete.51342d3c55f26cee0a89.jpg",
     "static/media/loterie2.jpg": "/react-gh-pages/static/media/loterie2.d5e927bde377c86b1e00.jpg",
     "index.html": "/react-gh-pages/index.html",
     "main.4ce17981.css.map": "/react-gh-pages/static/css/main.4ce17981.css.map",
-    "main.7a677757.js.map": "/react-gh-pages/static/js/main.7a677757.js.map"
+    "main.639dbd07.js.map": "/react-gh-pages/static/js/main.639dbd07.js.map"
   },
   "entrypoints": [
     "static/css/main.4ce17981.css",
-    "static/js/main.7a677757.js"
+    "static/js/main.639dbd07.js"
   ]
 }
