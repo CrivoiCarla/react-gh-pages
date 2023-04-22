@@ -3,14 +3,16 @@ import "../css/Roulette.css";
 import { Wheel } from 'react-custom-roulette'
 
 const options = [
-  { option: "10x", style: { backgroundColor: "#f44336", textColor: "#fff" } },
-  { option: "Nu ai castigat", style: { backgroundColor: "#e91e63", textColor: "#fff" } },
-  { option: "2x", style: { backgroundColor: "#9c27b0", textColor: "#fff" } },
-  { option: "Nu ai castigat", style: { backgroundColor: "#673ab7", textColor: "#fff" } },
-  { option: "1x", style: { backgroundColor: "#2196f3", textColor: "#fff" } },
-  { option: "Nu ai castigat", style: { backgroundColor: "#ff9800", textColor: "#fff" } },
-  { option: "15x", style: { backgroundColor: "#009688", textColor: "#fff" } },
-    { option: "Nu ai castigat", style: { backgroundColor: "#795548", textColor: "#fff" } },
+  { option: "10$", style: { backgroundColor: "#FF0000", textColor: "#fff" } },
+  { option: "Lose", style: { backgroundColor: "#000000", textColor: "#fff" } },
+  { option: "2$", style: { backgroundColor: "#FF0000", textColor: "#fff" } },
+  { option: "40$", style: { backgroundColor: "#000000", textColor: "#fff" } },
+  { option: "10$", style: { backgroundColor: "#FF0000", textColor: "#fff" } },
+  { option: "100$", style: { backgroundColor: "#000000", textColor: "#fff" } },
+  { option: "20$", style: { backgroundColor: "#FF0000", textColor: "#fff" } },
+  { option: "Lose", style: { backgroundColor: "#000000", textColor: "#fff" } },
+  { option: "100$", style: { backgroundColor: "#FF0000", textColor: "#fff" } },
+  { option: "1000$", style: { backgroundColor: "#008000", textColor: "#fff" } },
 ];
 
 function RoulettePage() {
