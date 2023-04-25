@@ -38,4 +38,27 @@ class AccountController extends AbstractController
 
         return new JsonResponse($response);
     }
+    /*
+        * Request example:
+        * {
+        * "username":"AlexSmecherul",
+        * "password":"alexESmecher1!A",
+        * }
+        */
+
+    #[Route('/v1/login', name: 'app_login', methods:['POST'])]
+    public function loginAccount(Request $request, ManagerRegistry $managerRegistry): Response
+    {
+        $account_info = json_decode($request->getContent(),true);
+
+        $response = (new AccountService())->checkAccount($account_info, $managerRegistry);
+        if($response){
+            return new JsonResponse([
+                "succes" => true
+            ]);
+        }
+        return new JsonResponse([
+            "succes" => false
+        ]);
+    }
 }
