@@ -97,4 +97,8 @@ class AccountService
     {
         (new AccountRepository($managerRegistry))->addAccount($account_fields);
     }
+
+    public function checkAccount(array $account_fields, ManagerRegistry $managerRegistry){
+        return (new AccountRepository($managerRegistry))->loginAccount($account_fields);
+    }
 }
