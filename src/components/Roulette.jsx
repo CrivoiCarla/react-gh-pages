@@ -20,10 +20,11 @@ function RoulettePage() {
   const [prizeNumber, setPrizeNumber] = useState(0);
 
   const fetchPrizeNumber = async () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "text/plain");
     const requestOptions = {
       method: "POST",
       headers: {
-        "Content-Type": "text/plain",
         'Origin': "https://example.com",
       },
     };
