@@ -8,6 +8,9 @@ export const Login = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Verifică în consolă datele trimise
+      console.log("Datele trimise:", { email, password });
+
       const response = await fetch('https://proiect-mds-php.herokuapp.com/v1/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -25,7 +28,7 @@ export const Login = (props) => {
       console.error(error);
     }
   }
-
+  
   return (
     <div className="auth-form-container">
       <h2>Login</h2>

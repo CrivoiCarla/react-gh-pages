@@ -7,3 +7,4 @@ export { default as Roulette } from "./Roulette";
 export { default as Register } from "./Register";
 export { default as Login } from "./Login";
 export { default as Contact } from "./Contact";
+export { default as Profile } from "./Profile";
