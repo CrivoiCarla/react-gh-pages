@@ -19,6 +19,7 @@ function RoulettePage() {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
 
+  
   const fetchPrizeNumber = async () => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "text/plain");
@@ -31,7 +32,7 @@ function RoulettePage() {
 
     try {
       const response = await fetch(
-        "https://proiect-mds-php.herokuapp.com/v1/spin",
+        "/v1/spin",
         requestOptions
       );
       const result = await response.text();
@@ -41,6 +42,41 @@ function RoulettePage() {
       return 0;
     }
   };
+
+
+
+
+
+
+
+  // const fetchPrizeNumber = async () => {
+  //   var myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "text/plain");
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: {
+  //       'Origin': "https://pacanele.herokuapp.com",
+  //     },
+  //   };
+
+  //   try {
+  //     // const response = await fetch(
+  //     //   "https://proiect-mds-php.herokuapp.com/v1/spin",
+  //     //   requestOptions
+  //     // );
+
+  //     const response = await fetch(
+  //       "/v1/spin",
+  //       requestOptions
+  //     );
+
+  //     const result = await response.text();
+  //     return parseInt(result);
+  //   } catch (error) {
+  //     console.log("error", error);
+  //     return 0;
+  //   }
+  // };
 
   const handleSpinClick = async () => {
     if (!mustSpin) {
