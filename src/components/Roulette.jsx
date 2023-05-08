@@ -25,7 +25,7 @@ function RoulettePage() {
     const requestOptions = {
       method: "POST",
       headers: {
-        'Origin': "https://example.com",
+        'Origin': "https://pacanele.herokuapp.com",
       },
     };
 
