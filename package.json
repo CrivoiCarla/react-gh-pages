@@ -19,7 +19,6 @@
     "react-scripts": "5.0.1",
     "react-spinning-wheel": "^2.1.0",
     "react-star-sky": "^1.0.3",
-    "react-starfield-animation": "^1.0.1",
     "styled-components": "^5.3.9",
     "web-vitals": "^2.1.4"
   },
