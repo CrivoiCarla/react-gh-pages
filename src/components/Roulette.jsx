@@ -1,6 +1,6 @@
-import React,{ useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/Roulette.css";
-import { Wheel } from 'react-custom-roulette'
+import { Wheel } from "react-custom-roulette";
 
 const options = [
   { option: "10$", style: { backgroundColor: "#FF0000", textColor: "#fff" } },
@@ -19,26 +19,55 @@ function RoulettePage() {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
 
-  const handleSpinClick = () => {
+  const fetchPrizeNumber = async () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "text/plain");
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        'Origin': "https://example.com",
+      },
+    };
+
+    try {
+      const response = await fetch(
+        "https://proiect-mds-php.herokuapp.com/v1/spin",
+        requestOptions
+      );
+      const result = await response.text();
+      return parseInt(result);
+    } catch (error) {
+      console.log("error", error);
+      return 0;
+    }
+  };
+
+  const handleSpinClick = async () => {
     if (!mustSpin) {
-      const newPrizeNumber = Math.floor(Math.random() * options.length);
+      const newPrizeNumber = await fetchPrizeNumber();
+      console.log(newPrizeNumber)
       setPrizeNumber(newPrizeNumber);
       setMustSpin(true);
     }
-  }
+  };
+
+  // useEffect(() => {
+  //   if (mustSpin) {
+  //     setTimeout(() => setMustSpin(false), 5000); // Acest timeout poate fi ajustat în funcție de durata animației roții
+  //   }
+  // }, [mustSpin]);
 
   return (
     <>
-      <div class='roulette'>
-      <Wheel 
-        mustStartSpinning={mustSpin}
-        prizeNumber={prizeNumber}
-        data={options}
-
-        onStopSpinning={() => {
-          setMustSpin(false);
-        }}
-      />
+      <div className="roulette">
+        <Wheel
+          mustStartSpinning={mustSpin}
+          prizeNumber={prizeNumber}
+          data={options}
+          onStopSpinning={() => {
+            setMustSpin(false);
+          }}
+        />
       </div>
       <button onClick={handleSpinClick}>SPIN</button>
     </>
