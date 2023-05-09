@@ -73,14 +73,9 @@ class AccountController extends AbstractController
 
     #[Route('/v1/spin', name: 'app_roulette', methods:['POST'])]
     public function returnRoulette(){
-        $response_json = new JsonResponse([
+        $response_json = new Response(json_encode([
             "number" => (new RouletteService())->getNumber()
-        ]);
-
-        $response_json->headers->set("Access-Control-Allow-Origin","https://pacanele.herokuapp.com");
-        $response_json->headers->set("Access-Control-Allow-Methods","POST");
-        $response_json->headers->set("Access-Control-Allow-Headers","Content-Type");
-
+        ]));
         return $response_json;
     }
 }
