@@ -8,7 +8,7 @@ export const Login = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://proiect-mds-php.herokuapp.com/v1/login', {
+      const response = await fetch('https://pacanelephp.herokuapp.com/v1/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
