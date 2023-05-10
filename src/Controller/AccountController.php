@@ -80,6 +80,7 @@ class AccountController extends AbstractController
         $response_json->headers->set("Access-Control-Allow-Origin","*");
         $response_json->headers->set("Access-Control-Allow-Methods","*");
         $response_json->headers->set("Access-Control-Allow-Headers","Content-Type");
+        $response_json->headers->set("Cache-Control", "no-cache, no-store, must-revalidate");
 
         return $response_json;
     }
