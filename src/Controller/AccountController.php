@@ -76,6 +76,11 @@ class AccountController extends AbstractController
         $response_json = new Response(json_encode([
             "number" => (new RouletteService())->getNumber()
         ]));
+
+        $response_json->headers->set("Access-Control-Allow-Origin","*");
+        $response_json->headers->set("Access-Control-Allow-Methods","*");
+        $response_json->headers->set("Access-Control-Allow-Headers","Content-Type");
+
         return $response_json;
     }
 }
