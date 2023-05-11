@@ -75,15 +75,9 @@ class AccountController extends AbstractController
     public function returnRoulette(){
         $response = new Response();
 
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
         $response->setContent(json_encode([
             "number" => (new RouletteService())->getNumber()
         ]));
-
-        $response->headers->set("Cache-Control", "no-cache, no-store, must-revalidate");
 
         return $response;
     }
