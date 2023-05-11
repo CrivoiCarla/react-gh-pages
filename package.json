@@ -20,14 +20,16 @@
     "react-scripts": "5.0.1",
     "react-spinning-wheel": "^2.1.0",
     "react-star-sky": "^1.0.3",
+    "serve": "^14.2.0",
     "styled-components": "^5.3.9",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "start": "serve -s build",
+    "build": "react-scripts build",
+    "heroku-postbuild": "npm run build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
