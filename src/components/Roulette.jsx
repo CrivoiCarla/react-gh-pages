@@ -39,7 +39,7 @@ function RoulettePage() {
       console.log(result);
       console.log(result.text());
       console.log(result.json());
-      return parseInt(result.text());
+      return result.number;
     } catch (error) {
       console.log("error", error);
       return 0;
