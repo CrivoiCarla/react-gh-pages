@@ -37,6 +37,8 @@ function RoulettePage() {
       );
       const result = await response.text();
       console.log(response);
+      console.log(response.text());
+      console.log(response.json());
       return parseInt(result);
     } catch (error) {
       console.log("error", error);
