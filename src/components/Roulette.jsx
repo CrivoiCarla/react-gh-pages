@@ -37,7 +37,11 @@ function RoulettePage() {
       );
       const result = await response.text();
       console.log(result);
-      return result.number;
+      
+      const parsedData = JSON.parse(result); // Parse the response text as JSON
+      const number = parsedData.number;
+      
+      return number;
     } catch (error) {
       console.log("error", error);
       return 0;
