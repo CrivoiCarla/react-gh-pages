@@ -32,7 +32,7 @@ function RoulettePage() {
 
     try {
       const response = await fetch(
-        "/v1/spin",
+        "https://pacanelephp.herokuapp.com/v1/spin",
         requestOptions
       );
       const result = await response.text();
