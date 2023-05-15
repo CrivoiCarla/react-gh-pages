@@ -63,7 +63,7 @@ class AccountRepository extends ServiceEntityRepository
     public function loginAccount(array $account_info){
         $em = $this->getEntityManager();
 
-        return $em->getRepository(Account::class)->findOneBy(["email"=>$account_info["email"],"password"=>$account_info["password"]]);
+        return $em->getRepository(Account::class)->findOneBy(["mail"=>$account_info["email"],"password"=>$account_info["password"]]);
     }
 
 //    /**
