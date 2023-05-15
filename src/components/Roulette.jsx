@@ -35,10 +35,8 @@ function RoulettePage() {
         "https://pacanelephp.herokuapp.com/v1/spin",
         requestOptions
       );
-      const result = await response;
+      const result = await response.text();
       console.log(result);
-      console.log(result.text());
-      console.log(result.json());
       return result.number;
     } catch (error) {
       console.log("error", error);
