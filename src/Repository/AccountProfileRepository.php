@@ -24,19 +24,11 @@ class AccountProfileRepository extends ServiceEntityRepository
     public function save(AccountProfile $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
     }
 
     public function remove(AccountProfile $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
     }
 
     public function removeMoney(int $id, int $suma){
