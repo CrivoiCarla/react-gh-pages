@@ -13,7 +13,7 @@ use Monolog\Registry;
 class SpinnerService
 {
     public function checkGame(ManagerRegistry $registry){
-        $last_record = (new SpinnerRecordsRepository($registry))->findLastRecord();
+        $last_record = (new SpinnerRecordsRepository($registry))->findLastRecord($registry);
         if($last_record->getWinner() != null){
             $this->createGame($registry);
         }

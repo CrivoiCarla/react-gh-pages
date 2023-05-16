@@ -33,9 +33,9 @@ class SpinnerRecordsRepository extends ServiceEntityRepository
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();
     }
-    public function findLastRecord()
+    public function findLastRecord(ManagerRegistry $registry)
     {
-        $qb = $this->entityManager->createQueryBuilder();
+        $qb = $registry->getManager()->createQueryBuilder();
         $qb->select('e')
             ->from(SpinnerRecords::class, 'e')
             ->orderBy('e.id', 'DESC')
