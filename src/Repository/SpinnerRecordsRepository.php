@@ -24,11 +24,13 @@ class SpinnerRecordsRepository extends ServiceEntityRepository
     public function save(SpinnerRecords $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush();
     }
 
     public function remove(SpinnerRecords $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->flush();
     }
 
 //    /**

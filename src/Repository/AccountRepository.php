@@ -24,11 +24,13 @@ class AccountRepository extends ServiceEntityRepository
     public function save(Account $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush();
     }
 
     public function remove(Account $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->flush();
     }
 
     public function checkExistence(array $account_info){
