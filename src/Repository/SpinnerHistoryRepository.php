@@ -33,6 +33,13 @@ class SpinnerHistoryRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
+    public function removeArray(array $toRemove)
+    {
+        foreach ($toRemove as $elem){
+            $this->remove($elem);
+        }
+    }
+
 //    /**
 //     * @return SpinnerHistory[] Returns an array of SpinnerHistory objects
 //     */

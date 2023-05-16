@@ -64,7 +64,7 @@ class SpinnerController extends AbstractController
     /*
      * This endpoint only requires the id of the game
      */
-    #[Route('/v1/chooseWinner/{id}', name: 'app_see_participants')]
+    #[Route('/v1/chooseWinner/{id}', name: 'app_choose_winner')]
     public function chooseWinner(ManagerRegistry $registry, Request $request): Response
     {
         $game_id = $request->get("id");
@@ -83,7 +83,7 @@ class SpinnerController extends AbstractController
     /*
      * No request body necessarry
      */
-    #[Route('/v1/getID', name: 'app_see_participants')]
+    #[Route('/v1/getID', name: 'app_get_id')]
     public function getID(ManagerRegistry $registry): Response
     {
         $game_id = (new SpinnerService())->createGame($registry);

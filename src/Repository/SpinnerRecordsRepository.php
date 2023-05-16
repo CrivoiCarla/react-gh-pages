@@ -21,10 +21,11 @@ class SpinnerRecordsRepository extends ServiceEntityRepository
         parent::__construct($registry, SpinnerRecords::class);
     }
 
-    public function save(SpinnerRecords $entity, bool $flush = false): void
+    public function save(SpinnerRecords $entity, bool $flush = false)
     {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
+        return $entity->getId();
     }
 
     public function remove(SpinnerRecords $entity, bool $flush = false): void

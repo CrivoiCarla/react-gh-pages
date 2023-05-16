@@ -24,6 +24,11 @@ class SpinnerRecords
         return $this->id;
     }
 
+    public function setId($id): self{
+        $this->id = $id;
+        return $this;
+    }
+
     public function getWinner(): ?string
     {
         return $this->winner;
