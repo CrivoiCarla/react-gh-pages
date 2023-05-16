@@ -86,7 +86,7 @@ class SpinnerController extends AbstractController
     #[Route('/v1/getID', name: 'app_get_id')]
     public function getID(ManagerRegistry $registry): Response
     {
-        $game_id = (new SpinnerService())->createGame($registry);
+        $game_id = (new SpinnerService())->checkGame($registry);
         return new JsonResponse([
             "id" => $game_id
         ]);

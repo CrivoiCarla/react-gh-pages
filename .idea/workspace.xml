@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="439b00bb-9af0-4cad-ad9a-8af3d7cf69e3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SpinnerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SpinnerController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/AccountProfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/AccountProfile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/SpinnerRecords.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/SpinnerRecords.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/SpinnerHistoryRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/SpinnerHistoryRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/SpinnerRecordsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/SpinnerRecordsRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/SpinnerService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/SpinnerService.php" afterDir="false" />
     </list>
@@ -196,7 +192,7 @@
       <workItem from="1683629776885" duration="8143000" />
       <workItem from="1683795756395" duration="4051000" />
       <workItem from="1684078614289" duration="373000" />
-      <workItem from="1684142813993" duration="14662000" />
+      <workItem from="1684142813993" duration="16250000" />
     </task>
     <servers />
   </component>
