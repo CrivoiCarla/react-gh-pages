@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="439b00bb-9af0-4cad-ad9a-8af3d7cf69e3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/tests/CrashTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/RouletteTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/SpinnerTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.test" beforeDir="false" afterPath="$PROJECT_DIR$/.env.test" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/workflows/blank.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/doctrine.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/CrashService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/CrashService.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +198,7 @@
       <workItem from="1683795756395" duration="4051000" />
       <workItem from="1684078614289" duration="373000" />
       <workItem from="1684142813993" duration="16905000" />
-      <workItem from="1685526088474" duration="20470000" />
+      <workItem from="1685526088474" duration="21420000" />
     </task>
     <servers />
   </component>
