@@ -16,6 +16,7 @@ class SpinnerService
         $last_record = (new SpinnerRecordsRepository($registry))->findLastRecord($registry);
         if($last_record->getWinner() != null){
             $this->createGame($registry);
+            $last_record = (new SpinnerRecordsRepository($registry))->findLastRecord($registry);
         }
         return $last_record->getId();
     }
