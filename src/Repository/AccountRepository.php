@@ -24,19 +24,13 @@ class AccountRepository extends ServiceEntityRepository
     public function save(Account $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
 
     public function remove(Account $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
 
     public function checkExistence(array $account_info){
@@ -63,7 +57,7 @@ class AccountRepository extends ServiceEntityRepository
     public function loginAccount(array $account_info){
         $em = $this->getEntityManager();
 
-        return $em->getRepository(Account::class)->findOneBy(["username"=>$account_info["username"],"password"=>$account_info["password"]]);
+        return $em->getRepository(Account::class)->findOneBy(["mail"=>$account_info["email"],"password"=>$account_info["password"]]);
     }
 
 //    /**
