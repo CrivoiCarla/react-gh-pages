@@ -33,17 +33,17 @@ class AccountProfileRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
-    public function removeMoney(int $id, int $suma){
+    public function removeMoney(int $id, float $suma){
         $accountProfile = $this->findOneBy(["player_id"=>$id]);
         if($accountProfile->getMoney() - $suma < 0){
-            return false;
+            die();
         }
         $accountProfile->setMoney($accountProfile->getMoney() - $suma);
         $this->save($accountProfile);
         return $accountProfile;
     }
 
-    public function addMoney(int $id, int $suma){
+    public function addMoney(int $id, float $suma){
         $accountProfile = $this->findOneBy(["player_id"=>$id]);
         $accountProfile->setMoney($accountProfile->getMoney() + $suma);
         $this->save($accountProfile);

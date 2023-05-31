@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="439b00bb-9af0-4cad-ad9a-8af3d7cf69e3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Controller/CrashController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/CrashService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/SpinnerRecordsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/SpinnerRecordsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/SpinnerService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/SpinnerService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/AccountProfileRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/AccountProfileRepository.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,6 +166,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/proiect_mds&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -193,6 +195,7 @@
       <workItem from="1683795756395" duration="4051000" />
       <workItem from="1684078614289" duration="373000" />
       <workItem from="1684142813993" duration="16905000" />
+      <workItem from="1685526088474" duration="8621000" />
     </task>
     <servers />
   </component>
