@@ -73,8 +73,8 @@ class CrashService
     public function cashout(ManagerRegistry $registry,$info){
         $last_record = (new CrashRepository($registry))->findLastRecord($registry);
 
-        $bet = (new CrashHistoryRepository($registry))->findOneBy(["id_jucator"=>$info["id_jucator"]]);
-        $bet->setExitedAt($last_record->getMultiplier());
+        $bet = (new CrashHistoryRepository($registry))->findOneBy(["id_jucator"=>$info["id_jucator"],"game_id"=>$last_record->getId()]);
+        $bet->setExitedAt($info["multiplier"]);
 
         (new CrashHistoryRepository($registry))->save($bet);
     }
@@ -84,6 +84,7 @@ class CrashService
         $bets = (new CrashHistoryRepository($registry))->findBy(["game_id"=>$game_id]);
 
         foreach($bets as $bet){
+            echo $bet->getExitedAt();
             if($bet->getExitedAt() < $last_record->getMultiplier()) {
                 (new AccountProfileRepository($registry))->addMoney($bet->getIdJucator(), $bet->getSuma() * $bet->getExitedAt());
             }
