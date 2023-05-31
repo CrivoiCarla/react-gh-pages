@@ -26,7 +26,9 @@ class SpinnerService
 
     public function addParticipant(ManagerRegistry $registry, array $info){
         $account_info = (new AccountProfileRepository($registry))->removeMoney($info["id"],$info["suma"]);
-
+        if($account_info == false){
+            return false;
+        }
         $newParticipant = new SpinnerHistory();
         $newParticipant->setGameId($info["game_id"]);
         $newParticipant->setPlayerId($info["id"]);

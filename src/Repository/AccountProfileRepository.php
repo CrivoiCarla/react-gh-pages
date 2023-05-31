@@ -35,6 +35,9 @@ class AccountProfileRepository extends ServiceEntityRepository
 
     public function removeMoney(int $id, int $suma){
         $accountProfile = $this->findOneBy(["player_id"=>$id]);
+        if($accountProfile->getMoney() - $suma < 0){
+            return false;
+        }
         $accountProfile->setMoney($accountProfile->getMoney() - $suma);
         $this->save($accountProfile);
         return $accountProfile;

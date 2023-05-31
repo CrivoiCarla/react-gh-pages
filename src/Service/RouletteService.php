@@ -34,18 +34,18 @@ class RouletteService
     ];
 
     public function getNumber($id, ManagerRegistry $registry){
-        (new AccountProfileRepository($registry))->removeMoney($id, 2);
+        if((new AccountProfileRepository($registry))->removeMoney($id, 2)) {
 
-        $random = rand(0,1000);
-        if($random == 1000){
-            $random = rand(0,1000);
-        }
-        for($i=0;$i<count(self::CHANCE_OPTIONS);$i++){
-            if(self::CHANCE_OPTIONS[$i][0] <= $random and $random <= self::CHANCE_OPTIONS[$i][1]){
-                (new AccountProfileRepository($registry))->addMoney($id, self::CHANCE_TRANSLATION[$i]);
-                return $i;
+            $random = rand(0, 1000);
+            if ($random == 1000) {
+                $random = rand(0, 1000);
+            }
+            for ($i = 0; $i < count(self::CHANCE_OPTIONS); $i++) {
+                if (self::CHANCE_OPTIONS[$i][0] <= $random and $random <= self::CHANCE_OPTIONS[$i][1]) {
+                    (new AccountProfileRepository($registry))->addMoney($id, self::CHANCE_TRANSLATION[$i]);
+                    return $i;
+                }
             }
         }
-
     }
 }
