@@ -13,6 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SpinnerController extends AbstractController
 {
+    public SpinnerService $spinner_service;
+    public ManagerRegistry $managerRegistry;
+    public function __construct(ManagerRegistry $managerRegistry)
+    {
+        $this->managerRegistry = $managerRegistry;
+        $this->spinner_service = new SpinnerService($managerRegistry);
+    }
     /*
      * Request example
      * {
@@ -23,11 +30,11 @@ class SpinnerController extends AbstractController
      *
      */
     #[Route('/v1/addParticipant', name: 'app_add_participant')]
-    public function addParticipant(Request $request, ManagerRegistry $managerRegistry): Response
+    public function addParticipant(Request $request): Response
     {
         $info = json_decode($request->getContent(),true);
 
-        (new SpinnerService())->addParticipant($managerRegistry,$info);
+        $this->spinner_service->addParticipant($info);
 
         return new JsonResponse([
             "succes" => true
@@ -43,11 +50,11 @@ class SpinnerController extends AbstractController
      * This endpoint only requires the id of the game
      */
     #[Route('/v1/seeParticipants/{id}', name: 'app_see_participants')]
-    public function seeParticipants(ManagerRegistry $managerRegistry, Request $request): Response
+    public function seeParticipants(Request $request): Response
     {
         $game_id = $request->get("id");
 
-        $response = (new SpinnerService())->getParticipants($managerRegistry,$game_id);
+        $response = $this->spinner_service ->getParticipants($game_id);
 
         return new JsonResponse([
             "participants" => $response
@@ -65,10 +72,10 @@ class SpinnerController extends AbstractController
      * This endpoint only requires the id of the game
      */
     #[Route('/v1/chooseWinner/{id}', name: 'app_choose_winner')]
-    public function chooseWinner(ManagerRegistry $registry, Request $request): Response
+    public function chooseWinner(Request $request): Response
     {
         $game_id = $request->get("id");
-        $response = (new SpinnerService())->getWinner($registry,$game_id);
+        $response = $this->spinner_service ->getWinner($game_id);
         return new JsonResponse($response);
     }
     /*
@@ -84,9 +91,9 @@ class SpinnerController extends AbstractController
      * No request body necessarry
      */
     #[Route('/v1/getID', name: 'app_get_id')]
-    public function getID(ManagerRegistry $registry): Response
+    public function getID(): Response
     {
-        $game_id = (new SpinnerService())->checkGame($registry);
+        $game_id = $this->spinner_service->checkGame();
         return new JsonResponse([
             "id" => $game_id
         ]);

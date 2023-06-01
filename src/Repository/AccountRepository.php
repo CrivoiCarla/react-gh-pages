@@ -21,7 +21,7 @@ class AccountRepository extends ServiceEntityRepository
         parent::__construct($registry, Account::class);
     }
 
-    public function save(Account $entity, bool $flush = false): void
+    public function save(Account $entity): void
     {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();

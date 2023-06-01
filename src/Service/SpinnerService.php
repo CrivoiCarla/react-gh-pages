@@ -12,21 +12,32 @@ use Monolog\Registry;
 
 class SpinnerService
 {
-    public function checkGame(ManagerRegistry $registry){
-        $last_record = (new SpinnerRecordsRepository($registry))->findLastRecord($registry);
+    public ManagerRegistry $registry;
+    public SpinnerRecordsRepository $spinnerRecordsRepository;
+    public AccountProfileRepository $accountProfileRepository;
+    public SpinnerHistoryRepository $spinnerHistoryRepository;
+    public function __construct(ManagerRegistry $registry)
+    {
+        $this->registry = $registry;
+        $this->spinnerRecordsRepository = new SpinnerRecordsRepository($registry);
+        $this->accountProfileRepository = new AccountProfileRepository($registry);
+        $this->spinnerHistoryRepository = new SpinnerHistoryRepository($registry);
+    }
+    public function checkGame(){
+        $last_record = $this->spinnerRecordsRepository->findLastRecord();
         if($last_record->getWinner() != null){
-            $this->createGame($registry);
-            $last_record = (new SpinnerRecordsRepository($registry))->findLastRecord($registry);
+            $this->createGame();
+            $last_record = $this->spinnerRecordsRepository->findLastRecord();
         }
         return $last_record->getId();
     }
-    public function createGame(ManagerRegistry $registry){
+    public function createGame(){
         $newGame = new SpinnerRecords();
-        return (new SpinnerRecordsRepository($registry))->save(new SpinnerRecords());
+        return $this->spinnerRecordsRepository->save(new SpinnerRecords());
     }
 
-    public function addParticipant(ManagerRegistry $registry, array $info){
-        $account_info = (new AccountProfileRepository($registry))->removeMoney($info["id"],$info["suma"]);
+    public function addParticipant(array $info){
+        $account_info = $this->accountProfileRepository->removeMoney($info["id"],$info["suma"]);
         if($account_info == false){
             return false;
         }
@@ -35,15 +46,15 @@ class SpinnerService
         $newParticipant->setPlayerId($info["id"]);
         $newParticipant->setSum($info["suma"]);
 
-        (new SpinnerHistoryRepository($registry))->save($newParticipant);
+        $this->spinnerHistoryRepository->save($newParticipant);
     }
 
-    public function getParticipants(ManagerRegistry $registry, int $game_id){
-        $players = (new SpinnerHistoryRepository($registry))->findBy(["game_id"=>$game_id]);
+    public function getParticipants(int $game_id){
+        $players = $this->spinnerHistoryRepository->findBy(["game_id"=>$game_id]);
 
         $returned_players = [];
         foreach($players as $player){
-            $player_info = (new AccountProfileRepository($registry))->findOneBy(["player_id"=>$player->getPlayerId()]);
+            $player_info = $this->accountProfileRepository->findOneBy(["player_id"=>$player->getPlayerId()]);
 
             $returned_players[] = json_encode([
                 "name" => $player_info->getName(),
@@ -55,8 +66,8 @@ class SpinnerService
         return $returned_players;
     }
 
-    public function getWinner(ManagerRegistry $registry, int $game_id){
-        $players = (new SpinnerHistoryRepository($registry))->findBy(["game_id"=>$game_id]);
+    public function getWinner(int $game_id){
+        $players = $this->spinnerHistoryRepository->findBy(["game_id"=>$game_id]);
         $players_ids = [];
         $players_sum = [];
         foreach($players as $player){
@@ -67,16 +78,16 @@ class SpinnerService
         $winner = $players_ids[$this->calculateWinner($players_sum)];
         $totalMoneyWon = array_sum($players_sum);
 
-        (new AccountProfileRepository($registry))->addMoney($winner, $totalMoneyWon);
+        $this->accountProfileRepository->addMoney($winner, $totalMoneyWon);
 
-        $update_record = (new SpinnerRecordsRepository($registry))->findOneBy(["id"=>$game_id]);
+        $update_record = $this->spinnerRecordsRepository->findOneBy(["id"=>$game_id]);
 
         $update_record->setSum($totalMoneyWon);
         $update_record->setWinner($winner);
 
-        (new SpinnerRecordsRepository($registry))->save($update_record);
-        (new SpinnerHistoryRepository($registry))->removeArray($players);
-        $account_info = (new AccountProfileRepository($registry))->findOneBy(["player_id" => $winner]);
+        $this->spinnerRecordsRepository->save($update_record);
+        $this->spinnerHistoryRepository->removeArray($players);
+        $account_info = $this->accountProfileRepository->findOneBy(["player_id" => $winner]);
 
         return [
             "name" => $account_info->getName(),

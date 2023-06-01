@@ -14,6 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccountController extends AbstractController
 {
+    public AccountService $account_service;
+    public function __construct(ManagerRegistry $managerRegistry)
+    {
+        $this->account_service = new AccountService($managerRegistry);
+    }
     /*
      * Request example:
      * {
@@ -27,14 +32,13 @@ class AccountController extends AbstractController
      * }
      */
     #[Route('/v1/register', name: 'app_register', methods: ['POST'])]
-    public function registerAccount(Request $request, ManagerRegistry $managerRegistry): Response
+    public function registerAccount(Request $request): Response
     {
         $account_info = json_decode($request->getContent(), true);
-
-        $response = (new AccountService())->checkFields($account_info, $managerRegistry);
+        $response = $this->account_service->checkFields($account_info);
 
         if ($response["response"]) {
-            (new AccountService())->saveAccount($account_info, $managerRegistry);
+            $this->account_service->saveAccount($account_info);
         }
 
         return new JsonResponse($response);
@@ -48,11 +52,10 @@ class AccountController extends AbstractController
         */
 
     #[Route('/v1/login', name: 'app_login', methods:['POST'])]
-    public function loginAccount(Request $request, ManagerRegistry $managerRegistry): Response
+    public function loginAccount(Request $request): Response
     {
         $account_info = json_decode($request->getContent(),true);
-
-        $response = (new AccountService())->checkAccount($account_info, $managerRegistry);
+        $response = $this->account_service->checkAccount($account_info);
         if($response){
             return new JsonResponse([
                 "succes" => true

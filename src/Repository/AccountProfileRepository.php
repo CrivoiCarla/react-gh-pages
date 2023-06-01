@@ -21,13 +21,13 @@ class AccountProfileRepository extends ServiceEntityRepository
         parent::__construct($registry, AccountProfile::class);
     }
 
-    public function save(AccountProfile $entity, bool $flush = false): void
+    public function save(AccountProfile $entity): void
     {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
     }
 
-    public function remove(AccountProfile $entity, bool $flush = false): void
+    public function remove(AccountProfile $entity): void
     {
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();

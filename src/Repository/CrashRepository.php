@@ -16,9 +16,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CrashRepository extends ServiceEntityRepository
 {
+    public ManagerRegistry $registry;
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Crash::class);
+        $this->registry = $registry;
     }
 
     public function save(Crash $entity): void
@@ -33,9 +35,9 @@ class CrashRepository extends ServiceEntityRepository
         $this->getEntityManager()->remove($entity);
             $this->getEntityManager()->flush();
     }
-    public function findLastRecord(ManagerRegistry $registry)
+    public function findLastRecord()
     {
-        $qb = $registry->getManager()->createQueryBuilder();
+        $qb = $this->registry->getManager()->createQueryBuilder();
         $qb->select('e')
             ->from(Crash::class, 'e')
             ->orderBy('e.id', 'DESC')

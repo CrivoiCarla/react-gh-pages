@@ -11,6 +11,12 @@ use Doctrine\Persistence\ObjectRepository;
 
 class AccountService
 {
+    public ManagerRegistry $managerRegistry;
+    public AccountRepository $accountRepository;
+    public function __construct(ManagerRegistry $managerRegistry){
+        $this->managerRegistry = $managerRegistry;
+        $this->accountRepository = new AccountRepository($managerRegistry);
+    }
     /*
      *      * {
      * "username":"AlexSmecherul",
@@ -21,10 +27,10 @@ class AccountService
      * "age":18
      * }
      */
-    public function checkFields(array $account_fields, ManagerRegistry $managerRegistry)
+    public function checkFields(array $account_fields)
     {
 
-        $check = $this->validateRequest($account_fields, $managerRegistry);
+        $check = $this->validateRequest($account_fields, $this->managerRegistry);
 
         $response = [
             "response" => !$check["response"],
@@ -35,7 +41,7 @@ class AccountService
         return $response;
     }
 
-    public function validateRequest(array $account_fields, ManagerRegistry $managerRegistry)
+    public function validateRequest(array $account_fields )
     {
         $response = "Check fields:";
         $error = false;
@@ -71,7 +77,7 @@ class AccountService
             $error = true;
         }
 
-        if ((new AccountRepository($managerRegistry))->checkExistence($account_fields)) {
+        if ($this->accountRepository->checkExistence($account_fields)) {
             $response = "You already have an account with us;";
             $error = true;
         }
@@ -93,12 +99,12 @@ class AccountService
         }
     }
 
-    public function saveAccount(array $account_fields, ManagerRegistry $managerRegistry)
+    public function saveAccount(array $account_fields)
     {
-        (new AccountRepository($managerRegistry))->addAccount($account_fields);
+        $this->accountRepository->addAccount($account_fields);
     }
 
     public function checkAccount(array $account_fields, ManagerRegistry $managerRegistry){
-        return (new AccountRepository($managerRegistry))->loginAccount($account_fields);
+        return $this->accountRepository->loginAccount($account_fields);
     }
 }

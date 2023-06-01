@@ -12,25 +12,37 @@ use Symfony\Bridge\Doctrine\ManagerRegistry;
 
 class CrashService
 {
-    public function getLastGame(ManagerRegistry $registry){
-        $last_record = (new CrashRepository($registry))->findLastRecord($registry);
+    public ManagerRegistry $registry;
+    public CrashRepository $crashRepository;
+    public CrashHistoryRepository $crashHistoryRepository;
+    public AccountProfileRepository $accountProfileRepository;
+
+    public function __construct(ManagerRegistry $registry)
+    {
+        $this->registry = $registry;
+        $this->crashRepository = new CrashRepository($registry);
+        $this->crashHistoryRepository = new CrashHistoryRepository($registry);
+        $this->accountProfileRepository = new AccountProfileRepository($registry);
+    }
+    public function getLastGame(){
+        $last_record = $this->crashRepository->findLastRecord($this->registry);
         if(!isset($last_record) or $last_record->getFinalizat() == "YES"){
-            $this->giveMoney($registry, $last_record->getId());
-            $this->createGame($registry);
-            $last_record = (new CrashRepository($registry))->findLastRecord($registry);
+            $this->giveMoney($last_record->getId());
+            $this->createGame();
+            $last_record = $this->crashRepository->findLastRecord();
         }
         return $last_record->getId();
     }
 
-    public function createGame(ManagerRegistry $registry){
+    public function createGame(){
             $game = new Crash();
             $game->setTimestamp((new \DateTimeImmutable())->getTimestamp());
             $game->setMultiplier(1);
             $game->setFinalizat("NO");
-            (new CrashRepository($registry))->save($game);
+            $this->crashRepository->save($game);
     }
 
-    public function getMultiplier(ManagerRegistry $registry){
+    public function getMultiplier(){
 
         // Function made by ChatGPT to generate a multiplier with a bias towards lower values
             $randomValue = mt_rand() / mt_getrandmax();
@@ -45,19 +57,19 @@ class CrashService
                 $x = 4 + (mt_rand() / mt_getrandmax());
             }
         $x = floatval(number_format($x, 2, '.', ''));
-        $last_record = (new CrashRepository($registry))->findLastRecord($registry);
+        $last_record = $this->crashRepository->findLastRecord();
         if($last_record->getFinalizat() == "NO") {
             $last_record->setMultiplier($x);
             $last_record->setFinalizat("YES");
-            (new CrashRepository($registry))->save($last_record);
+            $this->crashRepository->save($last_record);
             return $x;
         }
     }
 
-    public function placeBet(ManagerRegistry $registry, $info){
-        $last_record = (new CrashRepository($registry))->findLastRecord($registry);
+    public function placeBet($info){
+        $last_record = $this->crashRepository->findLastRecord();
 
-        $account_info = (new AccountProfileRepository($registry))->removeMoney($info["id_jucator"],$info["suma"]);
+        $account_info = $this->accountProfileRepository->removeMoney($info["id_jucator"],$info["suma"]);
 
         $new_better = new CrashHistory();
         $new_better->setIdJucator($info["id_jucator"])
@@ -65,30 +77,29 @@ class CrashService
             ->setGameId($last_record->getId())
             ->setExitedAt(0.0);
 
-        (new CrashHistoryRepository($registry))->save($new_better);
+        $this->crashHistoryRepository->save($new_better);
 
-        (new CrashRepository($registry))->save($last_record);
+        $this->crashRepository->save($last_record);
     }
 
-    public function cashout(ManagerRegistry $registry,$info){
-        $last_record = (new CrashRepository($registry))->findLastRecord($registry);
+    public function cashout($info){
+        $last_record = $this->crashRepository->findLastRecord();
 
-        $bet = (new CrashHistoryRepository($registry))->findOneBy(["id_jucator"=>$info["id_jucator"],"game_id"=>$last_record->getId()]);
+        $bet = $this->crashHistoryRepository->findOneBy(["id_jucator"=>$info["id_jucator"],"game_id"=>$last_record->getId()]);
         $bet->setExitedAt($info["multiplier"]);
 
-        (new CrashHistoryRepository($registry))->save($bet);
+        $this->crashHistoryRepository->save($bet);
     }
 
-    public function giveMoney(ManagerRegistry $registry, $game_id){
-        $last_record = (new CrashRepository($registry))->findLastRecord($registry);
-        $bets = (new CrashHistoryRepository($registry))->findBy(["game_id"=>$game_id]);
+    public function giveMoney($game_id){
+        $last_record = $this->crashRepository->findLastRecord();
+        $bets = $this->crashHistoryRepository->findBy(["game_id"=>$game_id]);
 
         foreach($bets as $bet){
-            echo $bet->getExitedAt();
             if($bet->getExitedAt() < $last_record->getMultiplier()) {
-                (new AccountProfileRepository($registry))->addMoney($bet->getIdJucator(), $bet->getSuma() * $bet->getExitedAt());
+                $this->accountProfileRepository->addMoney($bet->getIdJucator(), $bet->getSuma() * $bet->getExitedAt());
             }
-            (new CrashHistoryRepository($registry))->remove($bet);
+            $this->crashHistoryRepository->remove($bet);
         }
     }
 }
