@@ -9,13 +9,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CrashController extends AbstractController
 {
+    public CrashService $crash_service;
+    public function __construct(ManagerRegistry $managerRegistry)
+    {
+        $this->crash_service = new CrashService($managerRegistry);
+    }
     /*
      * No request body necessarry
      */
     #[Route('/v1/getMultiplierCrash', name: 'app_crash_multiplier', methods:['POST'])]
-    public function getMultiplierCrash(Request $request, ManagerRegistry $registry){
+    public function getMultiplierCrash(){
         return new JsonResponse([
-            "multiplier" => (new CrashService())->getMultiplier($registry)
+            "multiplier" => $this->crash_service->getMultiplier()
         ]);
     }
     /*
@@ -29,9 +34,9 @@ class CrashController extends AbstractController
      * No request body necessary
      */
     #[Route('/v1/getCrashId', name: 'app_crash_id', methods:['POST'])]
-    public function getCrashId(Request $request, ManagerRegistry $registry){
+    public function getCrashId(){
         return new JsonResponse([
-            "id"=> (new CrashService())->getLastGame($registry)
+            "id"=> $this->crash_service->getLastGame()
         ]);
     }
     /*
@@ -49,10 +54,10 @@ class CrashController extends AbstractController
      * }
      */
     #[Route('/v1/placeBet', name: 'app_crash_place_bet', methods:["POST"])]
-    public function placeBet(Request $request, ManagerRegistry $registry){
+    public function placeBet(Request $request){
         $info = json_decode($request->getContent(),true);
 
-        (new CrashService())->placeBet($registry,$info);
+        $this->crash_service->placeBet($info);
 
         return new JsonResponse([
             "succes" => true
@@ -69,10 +74,10 @@ class CrashController extends AbstractController
      * "multiplier" : 1.12
      */
     #[Route('/v1/cashout', name: 'app_crash_cashout', methods:['POST'])]
-    public function cashout(Request $request, ManagerRegistry $registry){
-$info = json_decode($request->getContent(),true);
+    public function cashout(Request $request){
+        $info = json_decode($request->getContent(),true);
 
-        (new CrashService())->cashout($registry,$info);
+        $this->crash_service->cashout($info);
 
         return new JsonResponse([
             "succes" => true

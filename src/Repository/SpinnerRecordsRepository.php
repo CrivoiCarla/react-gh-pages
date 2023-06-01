@@ -16,26 +16,28 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SpinnerRecordsRepository extends ServiceEntityRepository
 {
+    public ManagerRegistry $registry;
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, SpinnerRecords::class);
+        $this->registry = $registry;
     }
 
-    public function save(SpinnerRecords $entity, bool $flush = false)
+    public function save(SpinnerRecords $entity)
     {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
         return $entity->getId();
     }
 
-    public function remove(SpinnerRecords $entity, bool $flush = false): void
+    public function remove(SpinnerRecords $entity): void
     {
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();
     }
-    public function findLastRecord(ManagerRegistry $registry)
+    public function findLastRecord()
     {
-        $qb = $registry->getManager()->createQueryBuilder();
+        $qb = $this->registry->getManager()->createQueryBuilder();
         $qb->select('e')
             ->from(SpinnerRecords::class, 'e')
             ->orderBy('e.id', 'DESC')

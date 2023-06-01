@@ -32,9 +32,14 @@ class RouletteService
         [1000,1000], // 0.0001% => 1000$
         // In total imi da 101.5%, asa ca bine ca nu am mers pe mate
     ];
+    public AccountProfileRepository $accountProfileRepository;
+    public function __construct(ManagerRegistry $managerRegistry)
+    {
+        $this->accountProfileRepository = new AccountProfileRepository($managerRegistry);
+    }
 
-    public function getNumber($id, ManagerRegistry $registry){
-        if((new AccountProfileRepository($registry))->removeMoney($id, 2)) {
+    public function getNumber($id){
+        if($this->accountProfileRepository->removeMoney($id, 2)) {
 
             $random = rand(0, 1000);
             if ($random == 1000) {
@@ -42,7 +47,7 @@ class RouletteService
             }
             for ($i = 0; $i < count(self::CHANCE_OPTIONS); $i++) {
                 if (self::CHANCE_OPTIONS[$i][0] <= $random and $random <= self::CHANCE_OPTIONS[$i][1]) {
-                    (new AccountProfileRepository($registry))->addMoney($id, self::CHANCE_TRANSLATION[$i]);
+                    $this->accountProfileRepository->addMoney($id, self::CHANCE_TRANSLATION[$i]);
                     return $i;
                 }
             }

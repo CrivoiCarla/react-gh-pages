@@ -21,13 +21,13 @@ class SpinnerHistoryRepository extends ServiceEntityRepository
         parent::__construct($registry, SpinnerHistory::class);
     }
 
-    public function save(SpinnerHistory $entity, bool $flush = false): void
+    public function save(SpinnerHistory $entity): void
     {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
     }
 
-    public function remove(SpinnerHistory $entity, bool $flush = false): void
+    public function remove(SpinnerHistory $entity): void
     {
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();
