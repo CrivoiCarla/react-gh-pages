@@ -11,17 +11,23 @@ export const Login = (props) => {
       // Verifică în consolă datele trimise
       console.log("Datele trimise:", { email, password });
 
-      const response = await fetch('https://proiect-mds-php.herokuapp.com/v1/login', {
-        method: 'POST',
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "text/plain");
+      const requestOptions = {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Origin': 'https://pacanele.herokuapp.com' // Adăugăm header-ul Origin
+          'Origin': "https://pacanele.herokuapp.com",
         },
-        body: JSON.stringify({ email, password })
-      });
+      };
+
+      const response = await fetch(
+        "https://pacanelephp.herokuapp.com/v1/login",
+        requestOptions
+      );
+
       const data = await response.text();
       console.log(data);
-      
+
       if (response.ok) {
         console.log("User logged in successfully");
         // executa actiunea de logare
