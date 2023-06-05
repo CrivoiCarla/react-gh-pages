@@ -36,6 +36,7 @@ function App() {
         <Route path="/register" element={<Register />} /> 
         <Route path="/login" element={<Login handleLogin={handleLogin} />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/profile" element={<Profile />} /> 
         {isLoggedIn ? <Route path="/profile" element={<Profile />} /> : null}
       </Routes>
       <Footer />
