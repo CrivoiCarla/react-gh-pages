@@ -13,10 +13,15 @@ export const Login = (props) => {
 
       const response = await fetch('https://proiect-mds-php.herokuapp.com/v1/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Origin': 'https://pacanele.herokuapp.com' // Adăugăm header-ul Origin
+        },
         body: JSON.stringify({ email, password })
       });
-      const data = await response.json();
+      const data = await response.text();
+      console.log(data);
+      
       if (response.ok) {
         console.log("User logged in successfully");
         // executa actiunea de logare
@@ -27,6 +32,7 @@ export const Login = (props) => {
     } catch (error) {
       console.error(error);
     }
+    
   }
   
   return (
