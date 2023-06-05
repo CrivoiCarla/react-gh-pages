@@ -104,7 +104,7 @@ class AccountService
         $this->accountRepository->addAccount($account_fields);
     }
 
-    public function checkAccount(array $account_fields, ManagerRegistry $managerRegistry){
+    public function checkAccount(array $account_fields){
         return $this->accountRepository->loginAccount($account_fields);
     }
 }
