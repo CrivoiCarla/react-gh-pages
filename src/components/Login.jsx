@@ -18,6 +18,7 @@ export const Login = (props) => {
         headers: {
           'Origin': "https://pacanele.herokuapp.com",
         },
+        body: JSON.stringify({ email, password })
       };
 
       const response = await fetch(
