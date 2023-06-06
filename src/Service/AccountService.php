@@ -109,7 +109,7 @@ class AccountService
     {
         $this->accountRepository->addAccount($account_fields);
         $player_id = $this->accountProfileRepository->findLastRecord();
-        $this->accountProfileRepository->addAccountProfile($account_fields, $player_id);
+        $this->accountProfileRepository->addAccountProfile($account_fields, $player_id->getId());
     }
 
     public function checkAccount(array $account_fields){
