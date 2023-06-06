@@ -60,6 +60,17 @@ class AccountRepository extends ServiceEntityRepository
         return $em->getRepository(Account::class)->findOneBy(["mail"=>$account_info["email"],"password"=>$account_info["password"]]);
     }
 
+    public function findLastRecord()
+    {
+        $qb = $this->registry->getManager()->createQueryBuilder();
+        $qb->select('e')
+            ->from(Account::class, 'e')
+            ->orderBy('e.id', 'DESC')
+            ->setMaxResults(1);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Account[] Returns an array of Account objects
 //     */
