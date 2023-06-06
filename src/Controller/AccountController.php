@@ -65,9 +65,7 @@ class AccountController extends AbstractController
         $account_info = json_decode($request->getContent(),true);
         $response = $this->account_service->checkAccount($account_info);
         if($response){
-            return new JsonResponse([
-                "succes" => true
-            ]);
+            return new JsonResponse($response);
         }
         return new JsonResponse([
             "succes" => false

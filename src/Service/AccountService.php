@@ -124,8 +124,8 @@ class AccountService
             $account_info_array["name"] = $account_info->getName();
             $account_info_array["surname"] = $account_info->getSurname();
             $account_info_array["age"] = $account_info->getAge();
-            $account_profile = $this->accountProfileRepository->getAccountDetails($account_info)->getId();
-            $account_info_array["account_profile"]["photo"] = $account_profile;
+            $account_profile = $this->accountProfileRepository->getAccountDetails($account_info);
+            $account_info_array["account_profile"]["photo"] = $account_profile->getPhoto();
             $account_info_array["account_profile"]["money"] = $account_profile->getMoney();
             return $account_info_array;
         }
