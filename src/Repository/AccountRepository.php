@@ -16,9 +16,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class AccountRepository extends ServiceEntityRepository
 {
+    public ManagerRegistry $registry;
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Account::class);
+        $this->registry = $registry;
     }
 
     public function save(Account $entity): void
