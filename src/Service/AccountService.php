@@ -108,7 +108,7 @@ class AccountService
     public function saveAccount(array $account_fields)
     {
         $this->accountRepository->addAccount($account_fields);
-        $player_id = $this->accountProfileRepository->findLastRecord();
+        $player_id = $this->accountRepository->findLastRecord();
         $this->accountProfileRepository->addAccountProfile($account_fields, $player_id->getId());
     }
 
