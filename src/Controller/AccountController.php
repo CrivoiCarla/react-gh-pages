@@ -28,7 +28,8 @@ class AccountController extends AbstractController
      * "phone_number":"0770123456",
      * "name":"Popescu",
      * "surname":"Alexandru",
-     * "age":18
+     * "age":18,
+     * "account_photo":"https://link.com"
      * }
      */
     #[Route('/v1/register', name: 'app_register', methods: ['POST'])]
@@ -44,9 +45,16 @@ class AccountController extends AbstractController
         return new JsonResponse($response);
     }
     /*
+     * Response example:
+     * {
+     * "response":false,
+     * "error":"Check fields:username;password;Your password is not strong enough;"
+     * }
+     */
+    /*
         * Request example:
         * {
-        * "username":"AlexSmecherul",
+        * "email":"AlexSmecherul",
         * "password":"alexESmecher1!A",
         * }
         */
@@ -57,12 +65,27 @@ class AccountController extends AbstractController
         $account_info = json_decode($request->getContent(),true);
         $response = $this->account_service->checkAccount($account_info);
         if($response){
-            return new JsonResponse([
-                "succes" => true
-            ]);
+            return new JsonResponse($response);
         }
         return new JsonResponse([
             "succes" => false
         ]);
     }
+    /*
+     * Example response body
+     * {
+     * "id":1,
+     * "username":"AlexSmecherul",
+     * "password":"alexESmecher1!A",
+     * "mail":"a@yahoo.com",
+     * "phone_number":"0770123456",
+     * "name":"Popescu",
+     * "surname":"Alexandru",
+     * "age":18,
+     * "account_profile":{
+     *     "photo":"https://link.com",
+     *    "money":1000
+     * }
+     * }
+     */
 }
