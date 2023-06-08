@@ -29,7 +29,7 @@ class SpinnerController extends AbstractController
      * }
      *
      */
-    #[Route('/v1/addParticipant', name: 'app_add_participant')]
+    #[Route('/v1/addParticipant', name: 'app_add_participant', methods:['POST'])]
     public function addParticipant(Request $request): Response
     {
         $info = json_decode($request->getContent(),true);
@@ -49,7 +49,7 @@ class SpinnerController extends AbstractController
     /*
      * This endpoint only requires the id of the game
      */
-    #[Route('/v1/seeParticipants/{id}', name: 'app_see_participants')]
+    #[Route('/v1/seeParticipants/{id}', name: 'app_see_participants', methods:['POST'])]
     public function seeParticipants(Request $request): Response
     {
         $game_id = $request->get("id");
@@ -71,7 +71,7 @@ class SpinnerController extends AbstractController
     /*
      * This endpoint only requires the id of the game
      */
-    #[Route('/v1/chooseWinner/{id}', name: 'app_choose_winner')]
+    #[Route('/v1/chooseWinner/{id}', name: 'app_choose_winner', methods:['POST'])]
     public function chooseWinner(Request $request): Response
     {
         $game_id = $request->get("id");
@@ -90,7 +90,7 @@ class SpinnerController extends AbstractController
     /*
      * No request body necessarry
      */
-    #[Route('/v1/getID', name: 'app_get_id')]
+    #[Route('/v1/getID', name: 'app_get_id', methods:['POST'])]
     public function getID(): Response
     {
         $game_id = $this->spinner_service->checkGame();
