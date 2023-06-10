@@ -30,7 +30,7 @@ function Profile() {
         </div>
        )
     }
-  }, [navigate]);
+  });
 
   const handleDeposit = () => {
     const amount = prompt("Introduceți suma pe care doriți să o adăugați:");
