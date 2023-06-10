@@ -32,7 +32,10 @@ export const Login = (props) => {
       if (response.ok) {
         console.log("User logged in successfully");
         localStorage.setItem("userData", JSON.stringify(data));
+        const storedData = localStorage.getItem("userData");
+        console.log("Stored Data:", storedData);
         // executa actiunea de logare
+        
       } else {
         console.log("Invalid email or password");
         // afiseaza mesajul de eroare
