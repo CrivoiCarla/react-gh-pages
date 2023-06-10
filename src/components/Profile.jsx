@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../css/Profile.css";
 
 function Profile() {
@@ -10,7 +10,7 @@ function Profile() {
   const [userDataLoaded, setUserDataLoaded] = useState(false);
   let userData = null;
   
-  const history = useHistory(); // Utilizați funcția useHistory pentru a redirecționa utilizatorul
+  const navigate = useNavigate(); // Utilizați hook-ul useNavigate pentru a redirecționa utilizatorul
 
   useEffect(() => {
     const storedData = localStorage.getItem("userData");
@@ -21,8 +21,10 @@ function Profile() {
       setBalance(userData.account_profile.money);
       setPassword(userData.password);
       setUserDataLoaded(true);
+    } else {
+      navigate("/login"); // Redirecționați către pagina de logare în cazul în care nu există date utilizator
     }
-  }, []);
+  }, [navigate]);
 
   const handleDeposit = () => {
     const amount = prompt("Introduceți suma pe care doriți să o adăugați:");
@@ -48,12 +50,6 @@ function Profile() {
     }
   };
 
-  if (!userDataLoaded) {
-    // Utilizați funcția push a obiectului history pentru a redirecționa utilizatorul către pagina de logare
-    history.push("/Login");
-    return null; // Returnați null pentru a opri randarea componentei înainte de redirecționare
-  }
-
   return (
     <div className="profile">
       <h1 className="profile__title">Profilul meu</h1>
@@ -63,7 +59,7 @@ function Profile() {
         </p>
       </div>
       <div className="profile__image">
-        <img src={userData.phone_number} alt="Profile" />
+        <img src={userData?.phone_number} alt="Profile" />
       </div>
       <div className="profile__money">
         <p className="profile__info-label">Suma în cont:</p>
