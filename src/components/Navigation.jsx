@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 function Navigation() {
-  const [authenticated, setAuthenticated] = useState(false); // variabila de stare pentru autentificare
+
 
   return (
     <div className="navigation">
@@ -33,29 +33,13 @@ function Navigation() {
                   Roulette
                 </NavLink>
               </li>
-              {authenticated && (
-                // afișează link-ul către pagina de profil doar dacă utilizatorul este autentificat
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/profile">
-                    Profile
-                  </NavLink>
-                </li>
-              )}
+             
               <li className="nav-item">
-                <NavLink className="nav-link" to="/contact">
-                  Contact
+                <NavLink className="nav-link" to="/profile">
+                  Profile
                 </NavLink>
               </li>
-              {!authenticated && (
-                // afișează link-urile către paginile de autentificare doar dacă utilizatorul nu este autentificat
-                <>
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to="/login">
-                      Login
-                    </NavLink>
-                  </li>
-                </>
-              )}
+             
             </ul>
           </div>
         </div>

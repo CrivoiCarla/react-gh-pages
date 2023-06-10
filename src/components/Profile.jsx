@@ -50,7 +50,7 @@ function Profile() {
 
   if (!userDataLoaded) {
     // Utilizați funcția push a obiectului history pentru a redirecționa utilizatorul către pagina de logare
-    history.push("/login");
+    history.push("/Login");
     return null; // Returnați null pentru a opri randarea componentei înainte de redirecționare
   }
 

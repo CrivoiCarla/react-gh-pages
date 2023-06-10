@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 export const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,8 +33,7 @@ export const Login = (props) => {
       if (response.ok) {
         console.log("User logged in successfully");
         localStorage.setItem("userData", JSON.stringify(data));
-        const storedData = localStorage.getItem("userData");
-        // console.log("Stored Data:", storedData);
+        setLoggedIn(true);
         // executa actiunea de logare
 
       } else {
@@ -43,7 +43,11 @@ export const Login = (props) => {
     } catch (error) {
       console.error(error);
     }
-    
+  }
+  
+  if (loggedIn) {
+    // Dacă logarea a avut succes, redirecționează către pagina de profil
+    return <Redirect to="/profile" />;
   }
   
   return (
