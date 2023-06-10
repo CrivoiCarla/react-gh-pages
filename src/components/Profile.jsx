@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "../css/Profile.css";
 
 function Profile() {
@@ -9,6 +9,8 @@ function Profile() {
   const [password, setPassword] = useState("");
   const [userDataLoaded, setUserDataLoaded] = useState(false);
   let userData = null;
+  
+  const history = useHistory(); // Utilizați funcția useHistory pentru a redirecționa utilizatorul
 
   useEffect(() => {
     const storedData = localStorage.getItem("userData");
@@ -47,9 +49,9 @@ function Profile() {
   };
 
   if (!userDataLoaded) {
-    return (
-      <Redirect to="/login" />
-    );
+    // Utilizați funcția push a obiectului history pentru a redirecționa utilizatorul către pagina de logare
+    history.push("/login");
+    return null; // Returnați null pentru a opri randarea componentei înainte de redirecționare
   }
 
   return (
@@ -61,7 +63,7 @@ function Profile() {
         </p>
       </div>
       <div className="profile__image">
-        <img src={''} alt="Profile" />
+        <img src={userData.phone_number} alt="Profile" />
       </div>
       <div className="profile__money">
         <p className="profile__info-label">Suma în cont:</p>
