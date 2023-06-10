@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import "../css/Profile.css";
-let userData = null; 
 
 function Profile() {
-  const [name, setName] = useState("John Doe");
+  const [name, setName] = useState("");
   const [age, setAge] = useState(0);
-  const [balance, setBalance] = useState(1000);
+  const [balance, setBalance] = useState(0);
   const [password, setPassword] = useState("");
+  const [userDataLoaded, setUserDataLoaded] = useState(false);
+  let userData = null;
 
   useEffect(() => {
     const storedData = localStorage.getItem("userData");
@@ -16,6 +18,7 @@ function Profile() {
       setAge(userData.age);
       setBalance(userData.account_profile.money);
       setPassword(userData.password);
+      setUserDataLoaded(true);
     }
   }, []);
 
@@ -43,6 +46,12 @@ function Profile() {
     }
   };
 
+  if (!userDataLoaded) {
+    return (
+      <Redirect to="/login" />
+    );
+  }
+
   return (
     <div className="profile">
       <h1 className="profile__title">Profilul meu</h1>
@@ -52,7 +61,7 @@ function Profile() {
         </p>
       </div>
       <div className="profile__image">
-        <img src={userData.account_profile.photo} alt="Profile" />
+        <img src={''} alt="Profile" />
       </div>
       <div className="profile__money">
         <p className="profile__info-label">Suma în cont:</p>
