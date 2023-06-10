@@ -1,11 +1,23 @@
-import React, { useState } from "react";
-import '../css/Profile.css';
-
+import React, { useState, useEffect } from "react";
+import "../css/Profile.css";
+let userData = null; 
 
 function Profile() {
   const [name, setName] = useState("John Doe");
+  const [age, setAge] = useState(0);
   const [balance, setBalance] = useState(1000);
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("userData");
+    if (storedData) {
+      userData = JSON.parse(storedData);
+      setName(userData.name);
+      setAge(userData.age);
+      setBalance(userData.account_profile.money);
+      setPassword(userData.password);
+    }
+  }, []);
 
   const handleDeposit = () => {
     const amount = prompt("Introduceți suma pe care doriți să o adăugați:");
@@ -36,11 +48,15 @@ function Profile() {
       <h1 className="profile__title">Profilul meu</h1>
       <div className="profile__info">
         <p className="profile__info-item">
-          <span className="profile__info-label">Nume:</span> {name}
+          <span className="profile__info-label">Nume:</span> {name} - {age} ani
         </p>
-        <p className="profile__info-item">
-          <span className="profile__info-label">Suma în cont:</span> {balance} RON
-        </p>
+      </div>
+      <div className="profile__image">
+        <img src={userData.account_profile.photo} alt="Profile" />
+      </div>
+      <div className="profile__money">
+        <p className="profile__info-label">Suma în cont:</p>
+        <p className="profile__info-item">{balance} RON</p>
       </div>
       <div className="profile__actions">
         <button className="profile__action-button" onClick={handleDeposit}>
