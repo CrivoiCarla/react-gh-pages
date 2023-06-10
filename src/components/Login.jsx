@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigate = useNavigate(); // Utilizați hook-ul useNavigate pentru a redirecționa utilizatorul
+  //const navigate = useNavigate(); // Utilizați hook-ul useNavigate pentru a redirecționa utilizatorul
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +34,14 @@ export const Login = (props) => {
       if (response.ok) {
         console.log("User logged in successfully");
         localStorage.setItem("userData", JSON.stringify(data));
-        navigate("/profile"); // Redirecționează către pagina de profil
+       // Redirecționează către pagina de profil
+       return (
+        <div className="auth-form-container">
+          <label htmlFor="email">Te-ai logat cu succes</label>
+          <Link to="/profile" className="link-btn">Your profile here.</Link>
+        </div>
+      )
+
 
       } else {
         console.log("Invalid email or password");

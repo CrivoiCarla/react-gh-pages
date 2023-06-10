@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../css/Profile.css";
 
 function Profile() {
@@ -10,7 +10,7 @@ function Profile() {
   const [userDataLoaded, setUserDataLoaded] = useState(false);
   let userData = null;
   
-  const navigate = useNavigate(); // Utilizați hook-ul useNavigate pentru a redirecționa utilizatorul
+ // const navigate = useNavigate(); // Utilizați hook-ul useNavigate pentru a redirecționa utilizatorul
 
   useEffect(() => {
     const storedData = localStorage.getItem("userData");
@@ -22,7 +22,13 @@ function Profile() {
       setPassword(userData.password);
       setUserDataLoaded(true);
     } else {
-      navigate("/login"); // Redirecționați către pagina de logare în cazul în care nu există date utilizator
+       // Redirecționați către pagina de logare în cazul în care nu există date utilizator
+       return (
+        <div className="auth-form-container">
+          <label htmlFor="email">Nu esti logat</label>
+          <Link to="/login" className="link-btn">Please login here.</Link>
+        </div>
+       )
     }
   }, [navigate]);
 
