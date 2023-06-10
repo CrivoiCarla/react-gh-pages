@@ -31,6 +31,7 @@ export const Login = (props) => {
 
       if (response.ok) {
         console.log("User logged in successfully");
+        localStorage.setItem("userData", JSON.stringify(data));
         // executa actiunea de logare
       } else {
         console.log("Invalid email or password");
