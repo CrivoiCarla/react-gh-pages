@@ -18,17 +18,12 @@ function Profile() {
       userData = JSON.parse(storedData);
       setName(userData.name);
       setAge(userData.age);
-      setBalance(userData.account_profile.money);
+      setBalance(userData.money);
       setPassword(userData.password);
       setUserDataLoaded(true);
     } else {
        // Redirecționați către pagina de logare în cazul în care nu există date utilizator
-       return (
-        <div className="auth-form-container">
-          <label htmlFor="email">Nu esti logat</label>
-          <Link to="/login" className="link-btn">Please login here.</Link>
-        </div>
-       )
+       window.location.href = "/login";
     }
   });
 
@@ -57,7 +52,7 @@ function Profile() {
   };
 
   return (
-    <div className="profile">
+    <div >
       <h1 className="profile__title">Profilul meu</h1>
       <div className="profile__info">
         <p className="profile__info-item">
@@ -65,7 +60,7 @@ function Profile() {
         </p>
       </div>
       <div className="profile__image">
-        <img src={userData?.phone_number} alt="Profile" />
+        <img src={''} alt="Profile" />
       </div>
       <div className="profile__money">
         <p className="profile__info-label">Suma în cont:</p>

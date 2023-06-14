@@ -1,9 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
+import React from 'react';
+import { render, createRoot } from 'react-dom';
+import './index.css';
+import App from './App';
 
-ReactDOM.render(<App />, document.getElementById("root"));
-export { default as Profile } from "./components/Profile";
-serviceWorker.unregister();
+createRoot(document.getElementById('root')).render(<App />);

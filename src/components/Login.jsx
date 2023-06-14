@@ -35,12 +35,8 @@ export const Login = (props) => {
         console.log("User logged in successfully");
         localStorage.setItem("userData", JSON.stringify(data));
        // Redirecționează către pagina de profil
-       return (
-        <div className="auth-form-container">
-          <label htmlFor="email">Te-ai logat cu succes</label>
-          <Link to="/profile" className="link-btn">Your profile here.</Link>
-        </div>
-      )
+       window.location.href = "/profile";
+       
 
 
       } else {
