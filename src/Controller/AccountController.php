@@ -65,4 +65,50 @@ class AccountController extends AbstractController
             "succes" => false
         ]);
     }
+
+    /*
+        * Request example:
+        * {
+     *    "id":77,
+        * "password":"alexESmecher1!A",
+        * }
+        */
+    #[Route('/v1/changepass', name: 'app_change_pass', methods:['POST'])]
+    public function changePass(Request $request): Response
+    {
+        $account_info = json_decode($request->getContent(),true);
+        $response = $this->account_service->changePass($account_info);
+        if($response){
+            return new JsonResponse([
+                "succes" => true
+            ]);
+        }
+        return new JsonResponse([
+            "succes" => false
+        ]);
+    }
+    // Dau true sau false
+
+    /*
+        * Request example:
+        * {
+        * "id":77,
+        * "money":100,
+        * }
+        */
+    #[Route('/v1/setmoney', name: 'app_set_money', methods:['POST'])]
+    public function setMoney(Request $request): Response
+    {
+        $account_info = json_decode($request->getContent(),true);
+        $response = $this->account_service->setMoney($account_info);
+        if($response){
+            return new JsonResponse([
+                "succes" => true
+            ]);
+        }
+        return new JsonResponse([
+            "succes" => false
+        ]);
+    }
+
 }

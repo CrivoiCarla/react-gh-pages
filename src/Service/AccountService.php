@@ -4,6 +4,8 @@ namespace App\Service;
 
 
 use App\Entity\Account;
+use App\Entity\AccountProfile;
+use App\Repository\AccountProfileRepository;
 use App\Repository\AccountRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
@@ -13,9 +15,11 @@ class AccountService
 {
     public ManagerRegistry $managerRegistry;
     public AccountRepository $accountRepository;
+    public AccountProfileRepository $accountProfileRepository;
     public function __construct(ManagerRegistry $managerRegistry){
         $this->managerRegistry = $managerRegistry;
         $this->accountRepository = new AccountRepository($managerRegistry);
+        $this->accountProfileRepository = new AccountProfileRepository($managerRegistry);
     }
     /*
      *      * {
@@ -106,5 +110,13 @@ class AccountService
 
     public function checkAccount(array $account_fields){
         return $this->accountRepository->loginAccount($account_fields);
+    }
+
+    public function changePass(array $account_fields){
+        return $this->accountRepository->changePass($account_fields);
+    }
+
+    public function setMoney(array $account_fields){
+        return $this->accountProfileRepository->setMoney($account_fields);
     }
 }

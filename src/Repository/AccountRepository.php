@@ -60,6 +60,15 @@ class AccountRepository extends ServiceEntityRepository
         return $em->getRepository(Account::class)->findOneBy(["mail"=>$account_info["email"],"password"=>$account_info["password"]]);
     }
 
+    public function changePass(array $account_info){
+        $em = $this->getEntityManager();
+        $account = $em->getRepository(Account::class)->findOneBy(["id"=>$account_info["id"]]);
+        $account->setPassword($account_info["password"]);
+        $em->persist($account);
+        $em->flush();
+        return 1;
+    }
+
 //    /**
 //     * @return Account[] Returns an array of Account objects
 //     */

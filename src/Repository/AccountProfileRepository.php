@@ -50,6 +50,14 @@ class AccountProfileRepository extends ServiceEntityRepository
         return $accountProfile;
     }
 
+    public function setMoney(array $account_info){
+        $em = $this->getEntityManager();
+        $accountProfile = $em->getRepository(AccountProfile::class)->findOneBy(["player_id"=>$account_info["id"]]);
+        $accountProfile->setMoney($accountProfile->getMoney() + $account_info["money"]);
+        $em->persist($accountProfile);
+        $em->flush();
+    }
+
 //    /**
 //     * @return AccountProfile[] Returns an array of AccountProfile objects
 //     */
