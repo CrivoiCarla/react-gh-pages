@@ -16,9 +16,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class AccountRepository extends ServiceEntityRepository
 {
+    public ManagerRegistry $registry;
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Account::class);
+        $this->registry = $registry;
     }
 
     public function save(Account $entity): void
@@ -67,6 +69,16 @@ class AccountRepository extends ServiceEntityRepository
         $em->persist($account);
         $em->flush();
         return 1;
+}
+    public function findLastRecord()
+    {
+        $qb = $this->registry->getManager()->createQueryBuilder();
+        $qb->select('e')
+            ->from(Account::class, 'e')
+            ->orderBy('e.id', 'DESC')
+            ->setMaxResults(1);
+
+        return $qb->getQuery()->getOneOrNullResult();
     }
 
 //    /**

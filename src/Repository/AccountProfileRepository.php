@@ -16,9 +16,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class AccountProfileRepository extends ServiceEntityRepository
 {
+    public ManagerRegistry $registry;
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, AccountProfile::class);
+        $this->registry = $registry;
     }
 
     public function save(AccountProfile $entity): void
@@ -49,7 +51,6 @@ class AccountProfileRepository extends ServiceEntityRepository
         $this->save($accountProfile);
         return $accountProfile;
     }
-
     public function setMoney(array $account_info){
         $em = $this->getEntityManager();
         $accountProfile = $em->getRepository(AccountProfile::class)->findOneBy(["player_id"=>$account_info["id"]]);
@@ -57,7 +58,31 @@ class AccountProfileRepository extends ServiceEntityRepository
         $em->persist($accountProfile);
         $em->flush();
     }
+    public function getAccountDetails($id){
+        $em = $this->getEntityManager();
+        return $em->getRepository(AccountProfile::class)->findOneBy(["player_id"=>$id]);
+    }
 
+    public function addAccountProfile(array $account_fields,$player_id){
+        $new_account_profile = new AccountProfile();
+        $new_account_profile->setMoney(0)
+            ->setPhoto($account_fields["account_photo"])
+            ->setAge($account_fields["age"])
+            ->setName($account_fields["name"])
+            ->setPlayerId($player_id);
+        $this->save($new_account_profile);
+    }
+
+    public function findLastRecord()
+    {
+        $qb = $this->registry->getManager()->createQueryBuilder();
+        $qb->select('e')
+            ->from(AccountProfile::class, 'e')
+            ->orderBy('e.id', 'DESC')
+            ->setMaxResults(1);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 //    /**
 //     * @return AccountProfile[] Returns an array of AccountProfile objects
 //     */

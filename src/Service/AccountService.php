@@ -34,7 +34,10 @@ class AccountService
     public function checkFields(array $account_fields)
     {
 
-        $check = $this->validateRequest($account_fields, $this->managerRegistry);
+        $check = $this->validateRequest($account_fields);
+        if(!$check["response"]){
+            $this->saveAccount($account_fields);
+        }
 
         $response = [
             "response" => !$check["response"],
@@ -106,10 +109,27 @@ class AccountService
     public function saveAccount(array $account_fields)
     {
         $this->accountRepository->addAccount($account_fields);
+        $player_id = $this->accountRepository->findLastRecord();
+        $this->accountProfileRepository->addAccountProfile($account_fields, $player_id->getId());
     }
 
     public function checkAccount(array $account_fields){
-        return $this->accountRepository->loginAccount($account_fields);
+        $account_info = $this->accountRepository->loginAccount($account_fields);
+        if($account_info) {
+            $account_info_array = [];
+            $account_info_array["id"] = $account_info->getId();
+            $account_info_array["username"] = $account_info->getUsername();
+            $account_info_array["password"] = $account_info->getPassword();
+            $account_info_array["mail"] = $account_info->getMail();
+            $account_info_array["phone_number"] = $account_info->getPhoneNumber();
+            $account_info_array["name"] = $account_info->getName();
+            $account_info_array["surname"] = $account_info->getSurname();
+            $account_info_array["age"] = $account_info->getAge();
+            $account_profile = $this->accountProfileRepository->getAccountDetails($account_info);
+            $account_info_array["account_profile"]["photo"] = $account_profile->getPhoto();
+            $account_info_array["account_profile"]["money"] = $account_profile->getMoney();
+            return $account_info_array;
+        }
     }
 
     public function changePass(array $account_fields){
