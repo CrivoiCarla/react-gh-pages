@@ -4,6 +4,7 @@ namespace App\Service;
 
 
 use App\Entity\Account;
+use App\Entity\AccountProfile;
 use App\Repository\AccountProfileRepository;
 use App\Repository\AccountRepository;
 use Doctrine\ORM\EntityManager;
@@ -129,5 +130,13 @@ class AccountService
             $account_info_array["account_profile"]["money"] = $account_profile->getMoney();
             return $account_info_array;
         }
+    }
+
+    public function changePass(array $account_fields){
+        return $this->accountRepository->changePass($account_fields);
+    }
+
+    public function setMoney(array $account_fields){
+        return $this->accountProfileRepository->setMoney($account_fields);
     }
 }

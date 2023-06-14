@@ -51,7 +51,13 @@ class AccountProfileRepository extends ServiceEntityRepository
         $this->save($accountProfile);
         return $accountProfile;
     }
-
+    public function setMoney(array $account_info){
+        $em = $this->getEntityManager();
+        $accountProfile = $em->getRepository(AccountProfile::class)->findOneBy(["player_id"=>$account_info["id"]]);
+        $accountProfile->setMoney($accountProfile->getMoney() + $account_info["money"]);
+        $em->persist($accountProfile);
+        $em->flush();
+    }
     public function getAccountDetails($id){
         $em = $this->getEntityManager();
         return $em->getRepository(AccountProfile::class)->findOneBy(["player_id"=>$id]);
