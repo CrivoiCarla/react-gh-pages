@@ -113,6 +113,13 @@ function Profile() {
       }
     }
   };
+  // Funcția pentru deconectare
+  const handleLogout = () => {
+    // Clear sessionStorage and localStorage
+    sessionStorage.removeItem("userData");
+    localStorage.removeItem("userData");
+    navigate("/login");
+  };
 
   // Funcția pentru a trata schimbarea parolei
   const handleChangePassword = async () => {
@@ -177,6 +184,9 @@ function Profile() {
         </button>
         <button className="profile__action-button" onClick={handleChangePassword}>
           Schimbă parola
+        </button>
+        <button className="profile__action-button" onClick={handleLogout}>
+          Logout
         </button>
       </div>
     </div>

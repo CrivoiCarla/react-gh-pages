@@ -26,9 +26,10 @@ const RegisterPage = () => {
   const handleAgeChange = (event) => setAge(event.target.value);
   const handleAccountPhotoChange = (event) => setAccountPhoto(event.target.value);
 
-  const handleSubmit = (event) => {
+  
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     const user = {
       name: name,
       email: email,
@@ -39,26 +40,28 @@ const RegisterPage = () => {
       age: age,
       account_photo: accountPhoto
     };
-
-    const config = {
+  
+    const requestOptions = {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+        Origin: "https://pacanele.herokuapp.com",
+      },
+      body: JSON.stringify(user),
     };
-
-    axios
-      .post('https://proiect-mds-php.herokuapp.com/v1/register', user, config)
-      .then((response) => {
-        console.log(response);
-        toast.success('Contul a fost înregistrat'); // Mesajul de succes
-        setMessage(response.data.message);
-      })
-      .catch((error) => {
-        console.log(user)
-        console.log(error);
-      });
+  
+    try {
+      const response = await fetch(
+        "https://pacanelephp.herokuapp.com/v1/register",
+        requestOptions
+      );
+      alert("Contul a fost înregistrat"); // Mesajul de succes
+    } catch (error) {
+      console.log("error", error);
+      return 0;
+    }
   };
-
+  
   return (
     <div className="auth-form-container">
       <h2>Register</h2>
