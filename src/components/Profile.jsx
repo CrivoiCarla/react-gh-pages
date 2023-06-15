@@ -47,7 +47,7 @@ function Profile() {
     
     const amount = prompt("Introduceți suma pe care doriți să o adăugați:");
     if (amount) {
-      const newBalance = balance + parseInt(amount);
+      const newBalance = (parseFloat(balance) + parseInt(amount)).toString();
       const requestOptions = {
         method: "POST",
         headers: {
@@ -83,7 +83,7 @@ function Profile() {
   const handleWithdraw = async () => {
     const amount = prompt("Introduceți suma pe care doriți să o retrageți:");
     if (amount) {
-      const newBalance = balance - parseInt(amount);
+      const newBalance = (parseFloat(balance) - parseInt(amount)).toString();
       const requestOptions = {
         method: "POST",
         headers: {
