@@ -1,46 +1,109 @@
-.profile {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
+/* body {
   
-  .profile__title {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
+  margin: 0 ;
+  height: 75vh ;
+  display: flex ;
+  overflow: hidden ;
+  align-items: top ;
+  justify-content: center ; 
+  background-color: #000000 ;
+  font-family: 'Nunito', sans-serif ;
+  z-index: 2;
+
+} */
+.cnt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh; /* aici poți ajusta înălțimea în funcție de necesitățile tale */
+  margin: 0 auto;
+}
+
+.profile__title {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.profile__info, .profile__money {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile__info-item, .profile__money p {
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.profile__info-label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.profile__image img {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.profile__actions {
+  display: flex;
+  justify-content: space-around; /* modificat aici pentru a aranja butoanele pe linie */
+  width: 100%;
+}
+
+.profile__action-button {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  background-color: #03e9f4;
+  color: #fff;
+  transition: background-color .3s ease;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.profile__action-button:hover {
+  background-color: #027580;
+}
+
   
-  .profile__info-item {
-    margin-bottom: 10px;
-  }
+/* .pagesGame{
+  display: grid;
+  column-gap: 50px;
+  row-gap: 50px;
+  padding: 5%;
+  height: 80vh;
+}
+.poza1{
+  width: 100%;
+  height: 100%;
+  grid-column-start: 1;
+  background: url('../image/crash.png') no-repeat;
+  background-size:contain;
+}
+
+.poza2{
+  width: 100%;
+  height: 100%;
+  grid-column-start: 2;
+  background: url('../image/rullete.jpg') no-repeat;
+  background-size:contain;
   
-  .profile__info-label {
-    font-weight: bold;
-  }
-  
-  .profile__actions {
-    margin-top: 20px;
-  }
-  
-  .profile__action-button {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #2196f3;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .profile__action-button:hover {
-    background-color: #0c7cd5;
-  }
-  
-  .profile__action-button:last-child {
-    margin-right: 0;
-  }
-  
+}
+.poza3{
+  width: 100%;
+  height: 100%;
+  grid-column-start: 3;
+  background: url('../image/loterie2.jpg') no-repeat;
+  background-size:contain;
+ 
+}
+ */
+
+

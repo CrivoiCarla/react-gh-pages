@@ -1,0 +1,63 @@
+.auth-form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+    width: 800px;
+    max-width: 90%;
+    color: #fff;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+}
+
+.register-form label {
+    color: #fff;
+}
+
+.register-form input {
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    padding: 10px;
+    width: 100%;
+}
+
+.register-form button {
+    padding: 10px;
+    border: none;
+    background: transparent;
+    color: #03e9f4;
+    transition: .5s;
+    align-self: center;
+    width: fit-content;
+}
+
+.register-form button:hover {
+    background: #03e9f4;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #03e9f4,
+                0 0 25px #03e9f4,
+                0 0 50px #03e9f4,
+                0 0 100px #03e9f4;
+}
+
+.link-btn {
+    color: #03e9f4;
+    text-decoration: none;
+}
+
+.link-btn:hover {
+    color: #fff;
+}

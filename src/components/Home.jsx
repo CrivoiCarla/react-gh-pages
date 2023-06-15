@@ -3,6 +3,9 @@
 
 import { Link } from "react-router-dom";
 
+import '../css/Index.css';
+
+
 function Home() {
   return (
     <div>

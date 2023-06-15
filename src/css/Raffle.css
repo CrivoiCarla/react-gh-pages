@@ -1,0 +1,186 @@
+.custom-html-body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #243b55);
+}
+
+.custom-hidden {
+  display: none;
+}
+
+.custom-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+    width: 800px;
+    max-width: 90%;
+    color: #fff;
+}
+
+.custom-h1 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.custom-wheel-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.custom-circle {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.custom-totalAmount {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: rgb(29, 197, 226);
+}
+
+.custom-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.custom-controls-label,
+.custom-controls-input,
+.custom-controls-button {
+    color: #fff;
+}
+
+.custom-controls-input {
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    padding: 10px;
+    width: 100px;
+    text-align: right;
+}
+
+.custom-controls-button {
+    padding: 10px;
+    border: none;
+    background: transparent;
+    color: #03e9f4;
+    transition: .5s;
+}
+
+.custom-controls-button-hover:hover {
+    background: #03e9f4;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #03e9f4,
+                0 0 25px #03e9f4,
+                0 0 50px #03e9f4,
+                0 0 100px #03e9f4;
+}
+
+.custom-participantsList {
+    list-style: none;
+    padding: 0;
+}
+
+.custom-participantsList-li {
+    margin-bottom: 5px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.custom-profile-chain-container {
+  position: relative;
+}
+
+.custom-profile-chain {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  min-width: 15100px;
+  height: 100px;
+  margin-top: 3px;
+  background-color: #1f1f1f;
+  flex-shrink: 0;
+}
+
+.custom-profile-chain-wrapper {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  height: 100px;
+  margin-top: 20px;
+  background-color: #1f1f1f;
+  mask: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.custom-profile-chain-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.custom-yellow-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 100px;
+  background-color: goldenrod;
+  transform: translate(-50%, -50%);
+  z-index: 2; 
+}
+
+
+  
+.pagesGame{
+    display: grid;
+    column-gap: 50px;
+    row-gap: 50px;
+    padding: 5%;
+    height: 80vh;
+  }
+  .poza1{
+    width: 100%;
+    height: 100%;
+    grid-column-start: 1;
+    background: url('../image/crash.png') no-repeat;
+    background-size:contain;
+  }
+  
+  .poza2{
+    width: 100%;
+    height: 100%;
+    grid-column-start: 2;
+    background: url('../image/rullete.jpg') no-repeat;
+    background-size:contain;
+    
+  }
+  .poza3{
+    width: 100%;
+    height: 100%;
+    grid-column-start: 3;
+    background: url('../image/loterie2.jpg') no-repeat;
+    background-size:contain;
+   
+  }
+  
+  
+  
+  
