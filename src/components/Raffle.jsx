@@ -3,6 +3,8 @@ import "../css/Raffle.css";
 // import "../css/Lottery.css";
 import Footer from './Footer';
 import { useNavigate  } from "react-router-dom";
+import petrisorImage from '../image/petrisor-profile.jpg';
+import carlaImage from '../image/carla-profile.jpg';
 
 
 // Funcția pentru a seta tokenul în stocarea sesiunii
@@ -22,7 +24,7 @@ function Lottery()  {
 
 
 
-    // // NAVBAR_____________________________________________________________________
+    // // NAVBAR_________________________
 
     const buttons = document.querySelectorAll(".menu__item");
     let activeButton = document.querySelector(".menu__item.active");
@@ -64,7 +66,7 @@ function Lottery()  {
     });
     }
 
-// // FINAL NAVBAR_______________________________________________________________
+// // FINAL NAVBAR_______________________
 
     const token = getToken();
     const navigate = useNavigate();
@@ -82,6 +84,10 @@ function Lottery()  {
     const participantsList = useRef();
     const [winnerName, setWinnerName] = useState(null);
     const [winnerPhoto, setWinnerPhoto] = useState(null);
+    const [id_j, setId] = useState(null);
+    const [ball, setBalance] = useState(null);
+    const [betButtonDisabled, setBetButtonDisabled] = useState(false);
+    const [userDataLoaded, setUserDataLoaded] = useState(false);
 
     useEffect(() => {
         const storedData = localStorage.getItem("userData");
@@ -89,17 +95,23 @@ function Lottery()  {
           const userData = JSON.parse(storedData);
           //DE AICI IEI DATELE DESPRE PARTICIPANT/ BANI SI ID ETC
 
-        //   setId(userData.id)
+          setId(userData.id)
+          console.log(`Id jucator: ${id_j}`);
         //   setName(userData.name);
         //   setAge(userData.age);
-        //   setBalance(userData.account_profile.money);
+          setBalance(userData.account_profile.money);
         //   setPassword(userData.password);
-        //   setUserDataLoaded(true);
+          setUserDataLoaded(true);
         //   setPhoto(userData.account_profile.photo);
         } else {
           navigate('/login') // Redirecționează către pagina de login
         }
-      }, []);    
+      }, []);  
+      
+      useEffect(() => {
+        console.log(`Id jucator: ${id_j}`);
+    }, [id_j]);
+    
       
     const fillProgress = () => {
         setProgress(0);
@@ -113,6 +125,7 @@ function Lottery()  {
               setPlaceBet(true);
               const winnerData = chooseWinner();
               createProfileChain(winnerData);
+              setBetButtonDisabled(true);
             }
             return newProgress;
           });
@@ -143,6 +156,7 @@ function Lottery()  {
           clearInterval(progressInterval);
           setProgressInterval(null);
         }
+        setBetButtonDisabled(false);
         fillProgress(); // dacă doriți să începeți imediat umplerea cercului după resetare.
     };
     
@@ -158,20 +172,55 @@ function Lottery()  {
     
         fetch('https://pacanelephp.herokuapp.com/v1/getID', getIdRequestOptions)
             .then(response => {
-                if (!response.ok) {
-                    return response.json().then(data => {
+                return response.json().then(data => {
+                    if (!response.ok) {
+                        console.error(`A apărut o eroare la obținerea ID-ului jocului: ${JSON.stringify(data)}`);
                         throw new Error(`A apărut o eroare la obținerea ID-ului jocului: ${JSON.stringify(data)}`);
-                    });
-                }
-                return response.json();
+                        console.log("Răspunsul serverului:", data);
+                    } else {
+                        console.log("Răspunsul serverului:", data);
+                        console.log(`Răspuns de la server: ${JSON.stringify(data)}`);
+                        return data;
+                    }
+                });
             })
             .then(data => {
                 setGameId(data.id);
             })
             .catch(error => console.error(error));
+            
     }, []);
+    // useEffect(() => {
+    //     const getIdRequestOptions = {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({}) 
+    //     };
+    
+    //     fetch('https://pacanelephp.herokuapp.com/v1/getID', getIdRequestOptions)
+    //         .then(response => {
+    //             return response.text().then(text => {
+    //                 console.log(`Răspuns de la server: ${text}`);
+    //                 if (!response.ok) {
+    //                     throw new Error(`A apărut o eroare la obținerea ID-ului jocului: ${text}`);
+    //                 } else {
+    //                     return JSON.parse(text);
+    //                 }
+    //             });
+    //         })
+    //         .then(data => {
+    //             setGameId(data.id);
+    //         })
+    //         .catch(error => console.error(error));
+            
+    // }, []);
+    
+    
   
-
+    useEffect(() => {
+        console.log(`Id joc: ${gameId}`);
+    }, [id_j]);
+    
 
     const shuffleArray = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -190,6 +239,29 @@ function Lottery()  {
         if (gameId === null) {
             return;
         }
+
+        const getIdRequestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({}) 
+        };
+    
+        fetch('https://pacanelephp.herokuapp.com/v1/getID', getIdRequestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(data => {
+                        throw new Error(`A apărut o eroare la obținerea ID-ului jocului: ${JSON.stringify(data)}`);
+                    });
+                }
+                return response.json();
+                
+            })
+            .then(data => {
+                setGameId(data.id);
+            })
+            
+            .catch(error => console.error(error));
+            
     
         const interval = setInterval(() => {
             const requestOptions = {
@@ -197,7 +269,7 @@ function Lottery()  {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ game_id: gameId }) 
             };
-    
+            console.log(`Id joc: ${gameId}`);
             fetch(`https://pacanelephp.herokuapp.com/v1/seeParticipants/${gameId}`, requestOptions)
                 .then(response => response.json())
                 .then(data => {
@@ -257,11 +329,18 @@ useEffect(() => {
   }, [progress]);
 
     const handlePlaceBet = () => {
-        if (bet > 0 && bet <= currentBalance && gameId) {
+        console.log(`Ai incercat! ball = ${ball}, bet : ${bet}`);
+        console.log(Number.isFinite(bet));
+        const numBet = parseFloat(bet);
+        const numBall = parseFloat(ball);
+        console.log(gameId);
+        const numJuc = parseFloat(id_j);
+        if (numBet > 0 && numBet <= numBall && gameId) {
+            console.log(`Ai reusit!`);
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: 77, game_id: gameId, suma: bet })
+                body: JSON.stringify({ id: numJuc , game_id: gameId, suma: bet })
             };
 
             fetch('https://pacanelephp.herokuapp.com/v1/addParticipant', requestOptions)
@@ -271,6 +350,13 @@ useEffect(() => {
                         console.error('A apărut o eroare la adăugarea participantului');
                     }
                 });
+                console.log(`Am adaugat participantul : ${id_j} cu suma : ${bet}`);
+                const storedData = localStorage.getItem("userData");
+                const userData = JSON.parse(storedData);
+                userData.account_profile.money = (parseFloat(userData.account_profile.money)  - numBet).toString() ;
+                localStorage.setItem('userData', JSON.stringify(userData));
+        
+                setBetButtonDisabled(true);
         }
     }
     const [showChainElements, setShowChainElements] = useState(false);
@@ -288,7 +374,64 @@ useEffect(() => {
                 index: 115,
             };
         };
+        // const chooseWinner = async () => {
 
+        //     const getIdRequestOptions = {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify({}) 
+        //     };
+        
+        //     let gameId;
+        
+        //     try {
+        //         const response = await fetch('https://pacanelephp.herokuapp.com/v1/getID', getIdRequestOptions);
+        
+        //         if (!response.ok) {
+        //             const data = await response.json();
+        //             throw new Error(`A apărut o eroare la obținerea ID-ului jocului: ${JSON.stringify(data)}`);
+        //         }
+        
+        //         const data = await response.json();
+        //         gameId = data.id;
+        
+        //     } catch (error) {
+        //         console.error(error);
+        //         return;
+        //     }
+        
+        //     const requestOptions = {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //     };
+        
+        //     try {
+        //         const response = await fetch(`https://pacanelephp.herokuapp.com/v1/chooseWinner/${gameId}`, requestOptions);
+                
+        //         if (!response.ok) {
+        //             throw new Error(`HTTP error! status: ${response.status}`);
+        //         }
+        
+        //         const data = await response.json();
+        
+        //         if (data) {
+        //             console.log(data.name);
+        //             return {
+        //                 name: data.name,
+        //                 photo: data.photo,
+        //                 index: 111, 
+        //                 targetOffset: 0,
+        //             };
+        //         }
+                
+        //     } catch (error) {
+        //         console.error(`A apărut o eroare: ${error}`);
+        //     }
+        // };
+        
+        
+        
+        
 
     
     const animateProfileChain = useCallback((winnerData) => {
@@ -299,7 +442,7 @@ useEffect(() => {
         const spaceBetweenImages = 10;
         const winnerIndex = winnerData.index;
         // const targetOffset = winnerIndex * (imageWidth + spaceBetweenImages);
-        const targetOffset = 111 * (imageWidth + spaceBetweenImages);
+        const targetOffset = 102 * (imageWidth + spaceBetweenImages) - 50;
     
         const duration = 10000;
         const startTime = performance.now();
@@ -308,11 +451,15 @@ useEffect(() => {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
         
-            function easeOutCubic(t) {
-                return 1 - Math.pow(1 - t, 3);
+            // function easeOutCubic(t) {
+            //     return 1 - Math.pow(1 - t, 3);
+            // }
+
+            function easeOutExpo(t) {
+                return 1 - Math.pow(1 - t, 10);
             }
         
-            const easedProgress = easeOutCubic(progress);
+            const easedProgress = easeOutExpo(progress);
             const currentOffset = easedProgress * targetOffset;
         
             if (progress < 1) {
@@ -325,11 +472,14 @@ useEffect(() => {
                 resetAnimation();
             }
         }
-        
+        const storedData = localStorage.getItem("userData");
+        const userData = JSON.parse(storedData);
+        userData.account_profile.money = (parseFloat(userData.account_profile.money)  + currentTotal).toString() ;
+        localStorage.setItem('userData', JSON.stringify(userData));
         requestAnimationFrame(step);
     }, []);
 
-    const createProfileChain = useCallback((winnerData) => {
+    const createProfileChain = useCallback(async (winnerData) => {
         const profileChain = document.getElementById('profileChain');
         // const participants = Array.from(participantsListRef.current.children).map(li => li.innerText);
         // const randomParticipants = createRandomParticipantsList(participants);
@@ -340,13 +490,27 @@ useEffect(() => {
             let participantName;
             let imageWidth;
             const img = document.createElement('img');
+            // if (i < 115) {
+            //     // participantName = randomParticipants[i % randomParticipants.length];
+            //     participantName = 'Petrisor'
+            //     imageWidth = 100;
+            //     // img.src = `C:\Users\stanc\Desktop\MDS\tombola\src\img\petrisor-profile.jpg`;
+            //     // img.src = process.env.PUBLIC_URL + '../image/petrisor-profile.jpg';
+            //     img.src = petrisorImage;
+            // } 
             if (i < 115) {
-                // participantName = randomParticipants[i % randomParticipants.length];
-                participantName = 'Petrisor'
+                // alege aleator între "Petrisor" și "Carla"
+                if (Math.round(Math.random())) {
+                    participantName = 'Petrisor';
+                    img.src = petrisorImage;
+                    // img.src = process.env.PUBLIC_URL + '/img/petrisor-profile.jpg';
+                } else {
+                    participantName = 'Carla';
+                    img.src = carlaImage;
+                    // img.src = process.env.PUBLIC_URL + '/img/carla-profile.jpg';
+                }
                 imageWidth = 100;
-                // img.src = `C:\Users\stanc\Desktop\MDS\tombola\src\img\petrisor-profile.jpg`;
-                img.src = process.env.PUBLIC_URL + '/img/petrisor-profile.jpg';
-            } else if (i === 115) {
+            }else if (i === 115) {
                 participantName = 'Carol';
                 // winnerData.index = i;
                 imageWidth = 100;
@@ -355,24 +519,28 @@ useEffect(() => {
             } else {
                 participantName = 'Carla';
                 // img.src = `C:\Users\stanc\Desktop\MDS\tombola\src\img\carla-profile.jpg`;
-                img.src = process.env.PUBLIC_URL + '/img/carla-profile.jpg';
+                // img.src = process.env.PUBLIC_URL + '/img/carla-profile.jpg';
+                img.src = carlaImage;
             }
     
-           
-            // img.src = `C:\Users\stanc\Desktop\MDS\tombola\src\img/${participantName.toLowerCase()}-profile.jpg`;
-            // img.src = `https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg.freepik.com%2Ffree-photo%2Fwide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg&tbnid=huxi_OqxC54EPM&vet=12ahUKEwj8nP_vubf_AhVugv0HHfKODC4QMygMegUIARDcAQ..i&imgrefurl=https%3A%2F%2Fwww.freepik.com%2Fphotos%2Fnature&docid=phMLnQWV-ANRGM&w=626&h=418&itg=1&q=photos&client=opera-gx&ved=2ahUKEwj8nP_vubf_AhVugv0HHfKODC4QMygMegUIARDcAQ`;
             img.alt = participantName;
             img.width = imageWidth;
             profileChain.appendChild(img);
     
             totalOffset += imageWidth;
         }
+        winnerData = await chooseWinner();
+
+        if (winnerData) {
+            winnerData.targetOffset = totalOffset;
+            showChainElementsFunc();
+            setTimeout(() => {
+                animateProfileChain(winnerData);
+            }, 2000);
+        } else {
+            console.error('Datele câștigătorului nu sunt disponibile.');
+        }
     
-        winnerData.targetOffset = totalOffset;
-        showChainElementsFunc();
-        setTimeout(() => {
-            animateProfileChain(winnerData);
-        }, 2000);
     }, [animateProfileChain, showChainElementsFunc]);
 
     
@@ -393,7 +561,7 @@ useEffect(() => {
         
         <>
         <div className="custom-container">
-        <h1 className="custom-h1">Balanța mea: <span id="balance">{currentBalance}$</span></h1>
+        <h1 className="custom-h1">Balanța mea: <span id="balance">{ball}$</span></h1>
         <div className="custom-wheel-container">
             <div className="custom-circle">
                 <div className="progress-container">
@@ -421,7 +589,7 @@ useEffect(() => {
         <div className="custom-controls">
             <label htmlFor="betAmount" className="custom-controls-label">Suma pariului:</label>
             <input type="number" id="betAmount" min="1" max="1000" className="custom-controls-input" ref={betAmount} value={bet} onChange={(e) => setBet(e.target.value)} />
-            <button id="placeBet" className="custom-controls-button" onClick={handlePlaceBet}>Pariază</button>
+            <button id="placeBet" className="custom-controls-button" onClick={handlePlaceBet} disabled={betButtonDisabled}>Pariază</button>
         </div>
         <ul id="participantsList" className="custom-participantsList" ref={participantsList}>
             {participants.map((participant, index) => (

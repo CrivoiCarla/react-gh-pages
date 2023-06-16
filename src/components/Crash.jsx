@@ -5,7 +5,7 @@ import { useNavigate  } from "react-router-dom";
 
 export const Crash = () => {
 
-    // // NAVBAR_____________________________________________________________________
+    // // NAVBAR_________________________
 
   const buttons = document.querySelectorAll(".menu__item");
   let activeButton = document.querySelector(".menu__item.active");
@@ -47,7 +47,7 @@ export const Crash = () => {
   });
   }
 
-// // FINAL NAVBAR_______________________________________________________________
+// // FINAL NAVBAR_______________________
 
     // Funcția pentru a seta tokenul în stocarea sesiunii
     function setToken(userToken) {
@@ -73,40 +73,11 @@ export const Crash = () => {
     const [buttonLabel, setButtonLabel] = useState("Place Bet");
     const [currentMultiplier, setCurrentMultiplier] = useState(1.00);
     const [gameEnded, setGameEnded] = useState(false);
+    const [id_j, setId] = useState(null);
+    const [ball, setBalance] = useState(null);
+    const [betButtonDisabled, setBetButtonDisabled] = useState(false);
+    const [valBeti, setVlabetI] = useState(null);
 
-    useEffect(() => {
-      const storedData = localStorage.getItem("userData");
-      if (storedData) {
-        const userData = JSON.parse(storedData);
-        //DE AICI IEI DATELE DESPRE PARTICIPANT/ BANI SI ID ETC
-
-      //   setId(userData.id)
-      //   setName(userData.name);
-      //   setAge(userData.age);
-      //   setBalance(userData.account_profile.money);
-      //   setPassword(userData.password);
-      //   setUserDataLoaded(true);
-      //   setPhoto(userData.account_profile.photo);
-      } else {
-        navigate('/login') // Redirecționează către pagina de login
-      }
-    }, []);    
-
-    useEffect(() => {
-      if (gameState === "FINISHED") {
-        // Remove all stars
-        document.querySelectorAll('.star').forEach((star) => star.remove());
-  
-        // Start a new round after some delay
-        setTimeout(() => {
-          setGameState("PREPARING");
-          setCountdown(5.00);
-          setCurrentMultiplier(1.00);
-          getGameId();
-        }, 3000);
-      }
-    }, [gameState]);
-  
     const getGameId = () => {
       const getIdRequestOptions = {
         method: 'POST',
@@ -121,6 +92,55 @@ export const Crash = () => {
           })
           .catch(error => console.error('A apărut o eroare la obținerea ID-ului jocului:', error));
     };
+    // getGameId();
+    useEffect(() => {
+      const storedData = localStorage.getItem("userData");
+      if (storedData) {
+        const userData = JSON.parse(storedData);
+        //DE AICI IEI DATELE DESPRE PARTICIPANT/ BANI SI ID ETC
+
+        setId(userData.id)
+      //   setName(userData.name);
+      //   setAge(userData.age);
+        setBalance(userData.account_profile.money);
+      //   setPassword(userData.password);
+        // setUserDataLoaded(true);
+      //   setPhoto(userData.account_profile.photo);
+      } else {
+        navigate('/login') // Redirecționează către pagina de login
+      }
+    }, []);    
+
+    useEffect(() => {
+      if (gameState === "FINISHED") {
+        // Remove all stars
+        document.querySelectorAll('.star').forEach((star) => star.remove());
+        
+        // Start a new round after some delay
+        setTimeout(() => {
+          setGameState("PREPARING");
+          setCountdown(5.00);
+          setCurrentMultiplier(1.00);
+          
+          setBetButtonDisabled(false);
+        }, 3000);
+      }
+    }, [gameState]);
+  
+    // const getGameId = () => {
+    //   const getIdRequestOptions = {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({}) 
+    //   };
+  
+    //   fetch('https://pacanelephp.herokuapp.com/v1/getCrashId', getIdRequestOptions)
+    //       .then(response => response.json())
+    //       .then(data => {
+    //           setGameId(data.id);
+    //       })
+    //       .catch(error => console.error('A apărut o eroare la obținerea ID-ului jocului:', error));
+    // };
   
     // Add this to the star creation loop to add a class to each star for removal
     // star.classList.add('star');
@@ -130,11 +150,13 @@ export const Crash = () => {
     useEffect(() => {
       // Countdown logic
       const countdownTimer = setInterval(() => {
+        
           if (countdown <= 0) {
               setGameState("RUNNING");
               setButtonLabel("Cashout");
               getMultiplier();
               clearInterval(countdownTimer);
+              setBetButtonDisabled(false);
           } else {
               setCountdown(prevCountdown => (prevCountdown - 0.01).toFixed(2));
           }
@@ -163,16 +185,27 @@ export const Crash = () => {
   useEffect(() => {
     if (gameState === "RUNNING") {
         let increment = 0.01;
+        setBetButtonDisabled(false);
         const multiplierTimer = setInterval(() => {
             if (currentMultiplier >= multiplier) {
+              // // _______UPDATE LOCAL STORAGE
+              // const storedData = localStorage.getItem("userData");
+              // const userData = JSON.parse(storedData);
+              // userData.account_profile.money = (parseFloat(userData.account_profile.money)  + parseInt(1000)).toString() ;
+              // localStorage.setItem('userData', JSON.stringify(userData));
+
+              // // _______FINAL LOCAL STOARAGE
+
                 clearInterval(multiplierTimer);
                 setGameState("FINISHED");
                 setGameEnded(true);
                 setButtonLabel("Place Bet");
+                getGameId();
                 setTimeout(() => {
                     setGameEnded(false);
                     setGameState("PREPARING");
                     setCountdown(5.00);
+                    
                     setCurrentMultiplier(1.00);
                 }, 3000); // Wait for 2 seconds before resetting
             } else {
@@ -233,33 +266,65 @@ export const Crash = () => {
     }, [gameState]);
 
     const handlePlaceBet = () => {
-      const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id_jucator: 66, suma: betAmount }) 
-      };
 
-      fetch('https://pacanelephp.herokuapp.com/v1/placeBet', requestOptions)
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('A apărut o eroare la plasarea pariului:', error));
+      const numBet = parseFloat(betAmount);
+      const numBall = parseFloat(ball);
+      if (numBet > 0 && numBet <= numBall && gameId) {
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id_jucator: 66, suma: numBet }) 
+        };
+
+        fetch('https://pacanelephp.herokuapp.com/v1/placeBet', requestOptions)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        // Verifică dacă răspunsul are conținut înainte de a-l analiza ca JSON
+        return response.text().then(text => text ? JSON.parse(text) : {})
+    })
+    .then(data => console.log(data))
+    .catch(error => console.error('A apărut o eroare la plasarea pariului:', error));
+          const storedData = localStorage.getItem("userData");
+          const userData = JSON.parse(storedData);
+          userData.account_profile.money = (parseFloat(userData.account_profile.money) - parseInt(numBet)).toString();
+          localStorage.setItem('userData', JSON.stringify(userData));
+          setBalance(userData.account_profile.money);
+          setVlabetI(numBet);
+        setBetButtonDisabled(true);
+      }
     };
 
 
     
 
     const cashout = () => {
+      // Calculate the cashout amount
+      const cashoutAmount = parseFloat(valBeti) * parseFloat(currentMultiplier);
+    
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id_jucator: 66, multiplier }) 
+        body: JSON.stringify({ id_jucator: id_j, multiplier }) 
       };
-
+    
       fetch('https://pacanelephp.herokuapp.com/v1/cashout', requestOptions)
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+          console.log(data);
+    
+          // Update the local storage after cashing out
+          const storedData = localStorage.getItem("userData");
+          const userData = JSON.parse(storedData);
+          userData.account_profile.money = (parseFloat(userData.account_profile.money) + cashoutAmount).toString();
+          localStorage.setItem('userData', JSON.stringify(userData));
+          setBetButtonDisabled(true);
+          setBalance(userData.account_profile.money);
+        })
         .catch(error => console.error('A apărut o eroare la trimiterea datelor cashout:', error));
     };
+    
 
     //console.log(token)
     if (token=='undefined') {
@@ -283,6 +348,7 @@ export const Crash = () => {
             </div>
           </div>
           <div className="bet-container ">
+          <h3 className="custom-h1">Balanța mea: <span id="balance">{ball}$</span></h3>
             <label htmlFor="bet-amount">Bet amount</label>
             <input 
                 type="text" 
@@ -290,7 +356,7 @@ export const Crash = () => {
                 value={betAmount} 
                 onChange={e => setBetAmount(e.target.value)}
             />
-            <button onClick={buttonLabel === "Place Bet" ? handlePlaceBet : cashout}>{buttonLabel}</button>
+            <button onClick={buttonLabel === "Place Bet" ? handlePlaceBet : cashout} disabled={betButtonDisabled}>{buttonLabel}</button>
           </div>
         </div>
       </div>
