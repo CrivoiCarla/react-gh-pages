@@ -42,6 +42,23 @@ function Profile() {
     }
   }, []);
 
+  const handlePhoto = () => {
+    const newPhoto = prompt("Introduceți noua adresă URL pentru poza de profil:");
+    if (newPhoto) {
+      setPhoto(newPhoto);
+      alert("Poza de profil a fost schimbată cu succes!");
+  
+      // actualizare date locale
+      const storedData = localStorage.getItem("userData");
+      if (storedData) {
+        const userData = JSON.parse(storedData);
+        userData.account_profile.photo = newPhoto;
+        localStorage.setItem('userData', JSON.stringify(userData));
+      }
+    }
+  };
+  
+
   // Funcția pentru a trata adăugarea de fonduri în cont
   const handleDeposit = async () => {
     
@@ -137,7 +154,7 @@ function Profile() {
       const response = await fetch("https://pacanelephp.herokuapp.com/v1/changepass", requestOptions);
       const data = await response.json();
 
-      if (data.success === 'true') {
+      if (data.success == 'true') {
         setPassword(newPassword);
         alert("Parola a fost schimbată cu succes!");
 
@@ -187,6 +204,9 @@ function Profile() {
         </button>
         <button className="profile__action-button" onClick={handleLogout}>
           Logout
+        </button>
+        <button className="profile__action-button" onClick={handlePhoto}>
+          Schimba Poza
         </button>
       </div>
     </div>

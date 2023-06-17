@@ -30,7 +30,7 @@ export const Login = ({ setToken }) => {
     try {
       // Verificarea datelor trimise în consolă
       console.log("Datele trimise:", { email, password });
-
+  
       // Configurarea opțiunilor pentru cererea de login
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "text/plain");
@@ -41,17 +41,21 @@ export const Login = ({ setToken }) => {
         },
         body: JSON.stringify({ email, password })
       };
-
+  
       // Realizarea cererii de login
       const response = await fetch(
         "https://pacanelephp.herokuapp.com/v1/login",
         requestOptions
       );
-
+  
       // Extrageți răspunsul sub formă de text
       const data = await response.text();
-      const data1=JSON.parse(data);
-
+      
+      // Afișarea întregului răspuns în consolă
+      console.log("Răspunsul serverului:", data);
+  
+      const data1 = JSON.parse(data);
+  
       if (data1?.id) {
         console.log("User logged in successfully");
         //console.log(data1);
@@ -61,7 +65,7 @@ export const Login = ({ setToken }) => {
         localStorage.setItem("userData", JSON.stringify(data1));
         sessionStorage.setItem("userData", JSON.stringify(data1));
         //console.log(getToken());
-
+  
         // Redirecționarea către pagina de profil
         navigate("/profile");
       } else {
@@ -72,6 +76,7 @@ export const Login = ({ setToken }) => {
       console.error(error);
     }
   }
+  
   
   return (
     <div className="auth-form-container">

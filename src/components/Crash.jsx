@@ -1,11 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../css/Crash.css';
 import rocketImage from '../image/rocket.png';
+import rocketImage2 from '../image/200 (2).gif';
+import rocketImage3 from '../image/200 (3).gif';
+import rocketImage4 from '../image/200 (4).gif';
+import rocketCrash from '../image/200.gif';
+import rocketCrash2 from '../image/200 (1).gif';
+import rocketCrash3 from '../image/200 (5).gif';
+import rocketCrash4 from '../image/200 (6).gif';
+
 import { useNavigate  } from "react-router-dom";
 
 export const Crash = () => {
 
-    // // NAVBAR_________________________
+    // // NAVBAR_____________________________________________________________________
 
   const buttons = document.querySelectorAll(".menu__item");
   let activeButton = document.querySelector(".menu__item.active");
@@ -47,7 +55,7 @@ export const Crash = () => {
   });
   }
 
-// // FINAL NAVBAR_______________________
+// // FINAL NAVBAR_______________________________________________________________
 
     // Funcția pentru a seta tokenul în stocarea sesiunii
     function setToken(userToken) {
@@ -93,6 +101,10 @@ export const Crash = () => {
           .catch(error => console.error('A apărut o eroare la obținerea ID-ului jocului:', error));
     };
     // getGameId();
+    // useEffect(() => {
+    //   getGameId();
+      
+    // }, []);
     useEffect(() => {
       const storedData = localStorage.getItem("userData");
       if (storedData) {
@@ -119,6 +131,7 @@ export const Crash = () => {
         // Start a new round after some delay
         setTimeout(() => {
           setGameState("PREPARING");
+
           setCountdown(5.00);
           setCurrentMultiplier(1.00);
           
@@ -185,27 +198,28 @@ export const Crash = () => {
   useEffect(() => {
     if (gameState === "RUNNING") {
         let increment = 0.01;
-        setBetButtonDisabled(false);
+        // setBetButtonDisabled(false);
         const multiplierTimer = setInterval(() => {
             if (currentMultiplier >= multiplier) {
-              // // _______UPDATE LOCAL STORAGE
+              // // _________________UPDATE LOCAL STORAGE
               // const storedData = localStorage.getItem("userData");
               // const userData = JSON.parse(storedData);
               // userData.account_profile.money = (parseFloat(userData.account_profile.money)  + parseInt(1000)).toString() ;
               // localStorage.setItem('userData', JSON.stringify(userData));
 
-              // // _______FINAL LOCAL STOARAGE
+              // // _________________FINAL LOCAL STOARAGE
 
                 clearInterval(multiplierTimer);
                 setGameState("FINISHED");
                 setGameEnded(true);
                 setButtonLabel("Place Bet");
+                setBetButtonDisabled(true);
                 getGameId();
                 setTimeout(() => {
                     setGameEnded(false);
                     setGameState("PREPARING");
                     setCountdown(5.00);
-                    
+                    setBetButtonDisabled(false);
                     setCurrentMultiplier(1.00);
                 }, 3000); // Wait for 2 seconds before resetting
             } else {
@@ -223,25 +237,127 @@ export const Crash = () => {
 
   
 
-    useEffect(() => {
-        const rocket = document.querySelector('.rocket');
+   
 
-        const handleMouseMove = (e) => {
-            const rect = sceneRef.current.getBoundingClientRect();
-            rocket.style.left = e.clientX - rect.left + 'px';
-            rocket.style.top = e.clientY - rect.top + 'px';
-        };
+  //   useEffect(() => {
+  //     const rocket = document.querySelector('.rocket');
+  
+  //     let vx = (Math.random() - 0.5) * 20; // viteza pe axa x
+  //     let vy = (Math.random() - 0.5) * 20; // viteza pe axa y
+  
+  //     const sceneWidth = sceneRef.current.offsetWidth; // lățimea scenei
+  //     const sceneHeight = sceneRef.current.offsetHeight; // înălțimea scenei
+  
+  //     const moveRocket = () => {
+  //         // modifică viteza la fiecare actualizare pentru a face mișcarea mai aleatorie
+  //         vx += (Math.random() - 0.5) * 2;
+  //         vy += (Math.random() - 0.5) * 2;
+  
+  //         const x = rocket.offsetLeft + vx;
+  //         const y = rocket.offsetTop + vy;
+  
+  //         // Asigură-te că racheta nu iese din scenă
+  //         if (x < 0 || x > sceneWidth - rocket.offsetWidth) {
+  //             vx = -vx; // inversarea direcției de deplasare pe axa x
+  //         }
+  //         if (y < 0 || y > sceneHeight - rocket.offsetHeight) {
+  //             vy = -vy; // inversarea direcției de deplasare pe axa y
+  //         }
+  
+  //         rocket.style.left = (rocket.offsetLeft + vx) + 'px';
+  //         rocket.style.top = (rocket.offsetTop + vy) + 'px';
+  //     };
+  
+  //     const timerId = setInterval(moveRocket, 20); // intervalul de timp mai mic face mișcarea mai lină
+  
+  //     return () => {
+  //         clearInterval(timerId); // oprirea timerului atunci când componenta este demontată
+  //     };
+  // }, []);
+  
+  useEffect(() => {
+    const rocket = document.querySelector('.rocket');
 
-        if(sceneRef.current) {
-            sceneRef.current.addEventListener("mousemove", handleMouseMove);
+    // URL-ul gif-ului
+    const gifURL = rocketCrash;
+    // Salvarea URL-ului inițial al rachetei
+    const initialRocketURL = rocketImage;
+
+    let vx = (Math.random() - 0.5) * 20; // viteza pe axa x
+    let vy = (Math.random() - 0.5) * 20; // viteza pe axa y
+
+    const sceneWidth = sceneRef.current.offsetWidth; // lățimea scenei
+    const sceneHeight = sceneRef.current.offsetHeight; // înălțimea scenei
+
+    const moveRocket = () => {
+        if (gameState !== "RUNNING") {
+            return;
         }
 
-        return () => {
-            if(sceneRef.current) {
-                sceneRef.current.removeEventListener("mousemove", handleMouseMove);
-            }
-        };
-    }, []);
+        vx += (Math.random() - 0.5) * 2;
+        vy += (Math.random() - 0.5) * 2;
+
+        const x = rocket.offsetLeft + vx;
+        const y = rocket.offsetTop + vy;
+
+        if (x < 0 || x > sceneWidth - rocket.offsetWidth) {
+            vx = -vx;
+        }
+        if (y < 0 || y > sceneHeight - rocket.offsetHeight) {
+            vy = -vy;
+        }
+
+        rocket.style.left = (rocket.offsetLeft + vx) + 'px';
+        rocket.style.top = (rocket.offsetTop + vy) + 'px';
+    };
+
+    const timerId = setInterval(moveRocket, 20);
+
+    return () => {
+        clearInterval(timerId);
+    };
+}, [gameState]);  // adăugați gameState ca dependență
+
+useEffect(() => {
+  const rocket = document.querySelector('.rocket');
+  const rocketImg = rocket.querySelector('img');
+  if (gameState === "FINISHED") {
+      rocket.classList.remove('fire');
+      let randomValue = Math.floor(Math.random() * 4);
+      switch(randomValue) {
+          case 0:
+              rocketImg.src = rocketCrash;
+              break;
+          case 1:
+              rocketImg.src = rocketCrash2;
+              break;
+          case 2:
+              rocketImg.src = rocketCrash3;
+              break;
+          case 3:
+              rocketImg.src = rocketCrash4;
+              break;
+      }
+  } else if (gameState === "PREPARING") {
+      let randomValue = Math.floor(Math.random() * 4);
+      switch(randomValue) {
+          case 0:
+              rocketImg.src = rocketImage;
+              rocket.classList.add('fire');
+              break;
+          case 1:
+              rocketImg.src = rocketImage2;
+              break;
+          case 2:
+              rocketImg.src = rocketImage3;
+              break;
+          case 3:
+              rocketImg.src = rocketImage4;
+              break;
+      }
+  }
+}, [gameState]);
+
 
     useEffect(() => {
       if (gameState === "RUNNING"){
@@ -270,10 +386,11 @@ export const Crash = () => {
       const numBet = parseFloat(betAmount);
       const numBall = parseFloat(ball);
       if (numBet > 0 && numBet <= numBall && gameId) {
+        console.log(`NUM BET ${numBet}`);
         const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id_jucator: 66, suma: numBet }) 
+          body: JSON.stringify({ id_jucator: id_j, suma: numBet }) 
         };
 
         fetch('https://pacanelephp.herokuapp.com/v1/placeBet', requestOptions)

@@ -58,7 +58,7 @@
     }
 }
 
-.scene .rocket::before
+/* .scene .rocket::before
 {
     content: '';
     position: absolute;
@@ -79,6 +79,21 @@
     width: 10px;
     height: 200px;
     background: linear-gradient(#e25909, transparent);
+    filter: blur(20px);
+} */
+
+.scene .rocket.fire::before,
+.scene .rocket.fire::after {
+    content: '';
+    position: absolute;
+    bottom: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 200px;
+    background: linear-gradient(#e25909, transparent);
+}
+.scene .rocket.fire::after {
     filter: blur(20px);
 }
 
