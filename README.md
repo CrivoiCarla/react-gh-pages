@@ -75,7 +75,7 @@ There are several reasons to consider using React for the frontend of a gambling
 
 
 ## UML Use Case Diagram
-
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/uml.PNG?raw=true)
 
 ## Bug reporting
 
