@@ -22,6 +22,7 @@ Play and Win Arena  ensures a smooth and fair gaming environment. Join today for
    6. https://github.com/CrivoiCarla/react-gh-pages/edit/heroku_deployment
    7. https://github.com/CrivoiCarla/react-gh-pages/edit/10-spinner-endpoint-v1getid-doesnt-return-good-id 
    8. And all that begin with "feature"
+      
 *All other branches contain cond from the front-end.
 
 ## Demo
