@@ -11,6 +11,19 @@ Raffle is an exciting online game, where you have to guess a number between 1 an
 You can also try your luck at the roulette game. Watch the wheel spin, and try to anticipate your result. Hope for the best! You can win up to 15 times your bet amount!  Test your luck and enjoy the thrill of this classic casino favorite.
 Play and Win Arena  ensures a smooth and fair gaming environment. Join today for a thrilling, secure, and immersive online gambling experience like no other.
 
+## Branches:
+1) To view the final code of the project for the frontend part, we must look at the "Final" branch: https://github.com/CrivoiCarla/react-gh-pages/tree/Final 
+2) To view the backend part, you can enter the following branches:
+   1. https://github.com/CrivoiCarla/react-gh-pages/edit/master_backend    *the main*
+   2. https://github.com/CrivoiCarla/react-gh-pages/edit/backend_refactoring_001
+   3. https://github.com/CrivoiCarla/react-gh-pages/edit/bugfix_002_mentionPOSTforSpinner
+   4. https://github.com/CrivoiCarla/react-gh-pages/edit/bugfix_10_SpinnerGetIdEndpoint
+   5. https://github.com/CrivoiCarla/react-gh-pages/edit/define_simple_workflow_backend
+   6. https://github.com/CrivoiCarla/react-gh-pages/edit/heroku_deployment
+   7. https://github.com/CrivoiCarla/react-gh-pages/edit/10-spinner-endpoint-v1getid-doesnt-return-good-id 
+   8. And all that begin with "feature"
+*All other branches contain cond from the front-end.
+
 ## Demo
 
 ### The demo of the application can be found here: https://www.youtube.com/watch?v=yQhORmsvIqY 
