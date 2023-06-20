@@ -37,6 +37,7 @@ The app provides appropriate error messages for invalid login attempts(the email
 3)As a Crash player, I can stop the game in the moment I am satisfied with my earnings. 
 
 4)As a Raffle player, I want to place a bet alongside other players and to be able to win all the money. 
+
 5)As a Roulette player, if I click on the "Spin" button, the roulette will start. It will stop at one of the options: 
 1) 15*
 2) Nu ai câștigat
@@ -49,17 +50,17 @@ Where 2* means that the initial bet will be doubled etc.
 
 7)As a user, I can change the password. 
 
-8) As a player, I want a user-friendly interface, easy to access, not to crowded because it can accentuate the will of play with bigger bets.
+8)As a player, I want a user-friendly interface, easy to access, not to crowded because it can accentuate the will of play with bigger bets.
 
-9) As a professional gambler, I want a platform on which I can practice before going to the casino(warm up).
+9)As a professional gambler, I want a platform on which I can practice before going to the casino(warm up).
 
-10) As a programmer, I want user to have fun while playing on this app.
+10)As a programmer, I want user to have fun while playing on this app.
 
-11) As an user I want an app which will make my life easier so that I won't worry about how much I have to pay at downtown casinos, which are really expensive.
+11)As an user I want an app which will make my life easier so that I won't worry about how much I have to pay at downtown casinos, which are really expensive.
 
-12) As a developer, I want good communication between team members, so the team can work properly.
+12)As a developer, I want good communication between team members, so the team can work properly.
 
-13) As a manager, I want to be able to understand my team progress, so I can better report our failures and successes.
+13)As a manager, I want to be able to understand my team progress, so I can better report our failures and successes.
 
 
 ## Building tool
