@@ -6,10 +6,15 @@ Application designed and developed by Play and Win Arena team: Crivoi Carla , St
 ## Description of the application:
 
 Play and Win Arena combines PHP backend and React frontend to offer an unparalleled gambling experience. Enjoy classic gambling games, such as Crash, Raffle and Roulette in user-friendly interface. 
+
 Crash is a gambling game in which you can win if you cash out “crash out” before the game stops.
+
 Raffle is an exciting online game, where you have to guess a number between 1 and 6.
+
 You can also try your luck at the roulette game. Watch the wheel spin, and try to anticipate your result. Hope for the best! You can win up to 15 times your bet amount!  Test your luck and enjoy the thrill of this classic casino favorite.
+
 Play and Win Arena  ensures a smooth and fair gaming environment. Join today for a thrilling, secure, and immersive online gambling experience like no other.
+
 
 ## Branches:
 1) To view the final code of the project for the frontend part, we must look at the "Final" branch: https://github.com/CrivoiCarla/react-gh-pages/tree/Final 
