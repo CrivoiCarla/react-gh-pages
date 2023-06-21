@@ -134,9 +134,13 @@ For testing we have used Symphony. Symfony is a PHP framework that provides a so
 
 ## Design patterns
 
+* MVC
+
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/mvc.PNG?raw=true)
+
 React Design Patterns are core enablers of React library that enable React Developers to create complex React apps in an easily maintainable manner. There are a number of different pre-built hooks available like the Effect Hook ( useEffect ) and the State Hook. 
 
-1. React Hooks (useEffect )
+ * React Hooks (useEffect )
 
 ![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/react1.PNG?raw=true)
 
