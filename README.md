@@ -112,13 +112,13 @@ There are several reasons to consider using React for the frontend of a gambling
 We have encountered the following bugs:
 1.	The returned id from the spinner endpoint is not good for the first request, because the record is not updated and therefore the last played id will be shown. To see the fixing, click here.
    
-![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/backlog.PNG?raw=true)
+
 
 ## Automation Testing
 
 For testing we have used Symphony. Symfony is a PHP framework that provides a solid foundation for building web applications. While Symfony itself does not provide specific tools or features for automation testing, you can leverage various testing libraries and frameworks within the Symfony ecosystem to implement automated testing for your Symfony-based application.
 
-![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/autoc.PNG?raw=true)
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/autocjpeg?raw=true)
 
 ![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/auto.PNG?raw=true)
 
