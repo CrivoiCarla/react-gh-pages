@@ -17,8 +17,9 @@ Play and Win Arena  ensures a smooth and fair gaming environment. Join today for
 
 
 ## Branches:
-1) To view the final code of the project for the frontend part, we must look at the "Final" branch: https://github.com/CrivoiCarla/react-gh-pages/tree/Final 
-2) To view the backend part, you can enter the following branches:
+1) To view the final code of the project for the frontend part, we must look at the "Final" branch: https://github.com/CrivoiCarla/react-gh-pages/tree/Final
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/fr.PNG?raw=true)
+3) To view the backend part, you can enter the following branches:
    1. https://github.com/CrivoiCarla/react-gh-pages/edit/master_backend    *the main*
    2. https://github.com/CrivoiCarla/react-gh-pages/edit/backend_refactoring_001
    3. https://github.com/CrivoiCarla/react-gh-pages/edit/bugfix_002_mentionPOSTforSpinner
@@ -27,9 +28,10 @@ Play and Win Arena  ensures a smooth and fair gaming environment. Join today for
    6. https://github.com/CrivoiCarla/react-gh-pages/edit/heroku_deployment
    7. https://github.com/CrivoiCarla/react-gh-pages/edit/10-spinner-endpoint-v1getid-doesnt-return-good-id 
    8. And all that begin with "feature"
-      
-*All other branches contain cond from the front-end.
 
+*All other branches contain cond from the front-end.
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/bk.PNG?raw=true)
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/bk2.PNG?raw=true)
 ## Demo
 
 ### The demo of the application can be found here: https://www.youtube.com/watch?v=yQhORmsvIqY 
@@ -39,6 +41,7 @@ Play and Win Arena  ensures a smooth and fair gaming environment. Join today for
 We used Jira in order to manage and organise our tasks during the development of the application. This link redirects to our backlog creation. 
 
 Link: https://proiect-mds-2023.atlassian.net/jira/software/projects/PM/boards/1/backlog
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/backlog.PNG?raw=true)
 ![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/backlog.PNG?raw=true)
 ## User stories
 
@@ -103,8 +106,27 @@ There are several reasons to consider using React for the frontend of a gambling
 
 We have encountered the following bugs:
 1.	The returned id from the spinner endpoint is not good for the first request, because the record is not updated and therefore the last played id will be shown. To see the fixing, click here.
-
+   
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/backlog.PNG?raw=true)
 
 ## Automation Testing
 
 For testing we have used Symphony. Symfony is a PHP framework that provides a solid foundation for building web applications. While Symfony itself does not provide specific tools or features for automation testing, you can leverage various testing libraries and frameworks within the Symfony ecosystem to implement automated testing for your Symfony-based application.
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/autoc.PNG?raw=true)
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/auto.PNG?raw=true)
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/auto2.PNG?raw=true)
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/exAuto.PNG?raw=true)
+
+## Commented code
+
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/com.PNG?raw=true)
+
+## Design patterns
+
+React Design Patterns are core enablers of React library that enable React Developers to create complex React apps in an easily maintainable manner. There are a number of different pre-built hooks available like the Effect Hook ( useEffect ) and the State Hook. 
+
+1. React Hooks (useEffect )
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/react1.PNG?raw=true)
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/react2.PNG?raw=true)
+
+   
