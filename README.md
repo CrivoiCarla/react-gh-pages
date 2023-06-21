@@ -39,7 +39,7 @@ Play and Win Arena  ensures a smooth and fair gaming environment. Join today for
 We used Jira in order to manage and organise our tasks during the development of the application. This link redirects to our backlog creation. 
 
 Link: https://proiect-mds-2023.atlassian.net/jira/software/projects/PM/boards/1/backlog
-
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/backlog.PNG?raw=true)
 ## User stories
 
 User stories are short, simple descriptions of a feature told from the perspective of the person who desires the new capability, usually a user.
