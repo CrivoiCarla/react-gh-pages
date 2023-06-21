@@ -144,5 +144,5 @@ React Design Patterns are core enablers of React library that enable React Devel
 
 ## Using an AI tool that helps during software development
 
-![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/chat.PNG?raw=true)
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/chat.jpeg?raw=true)
    
