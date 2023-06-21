@@ -36,7 +36,9 @@ Play and Win Arena  ensures a smooth and fair gaming environment. Join today for
 
 ## Jira 
 
-We used Jira in order to manage and organise our tasks during the development of the application. This link redirects to our backlog creation.
+We used Jira in order to manage and organise our tasks during the development of the application. This link redirects to our backlog creation. 
+
+Link: https://proiect-mds-2023.atlassian.net/jira/software/projects/PM/boards/1/backlog
 
 ## User stories
 
