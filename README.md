@@ -118,7 +118,7 @@ We have encountered the following bugs:
 
 For testing we have used Symphony. Symfony is a PHP framework that provides a solid foundation for building web applications. While Symfony itself does not provide specific tools or features for automation testing, you can leverage various testing libraries and frameworks within the Symfony ecosystem to implement automated testing for your Symfony-based application.
 
-![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/autocjpeg?raw=true)
+![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/autoc.jpeg?raw=true)
 
 ![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/auto.PNG?raw=true)
 
@@ -128,7 +128,7 @@ For testing we have used Symphony. Symfony is a PHP framework that provides a so
 
 ## Commented code
 
- https://github.com/CrivoiCarla/react-gh-pages/tree/Final/Profile.jsx
+[https://github.com/CrivoiCarla/react-gh-pages/tree/Final/Profile.jsx](https://github.com/CrivoiCarla/react-gh-pages/blob/Final/src/components/Profile.jsx)
  
 ![alt text](https://github.com/CrivoiCarla/react-gh-pages/blob/main/com.PNG?raw=true)
 
