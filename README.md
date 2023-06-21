@@ -111,7 +111,12 @@ There are several reasons to consider using React for the frontend of a gambling
 
 We have encountered the following bugs:
 1.	The returned id from the spinner endpoint is not good for the first request, because the record is not updated and therefore the last played id will be shown. To see the fixing, click here.
-   
+
+* https://github.com/CrivoiCarla/react-gh-pages/issues/10 
+
+* https://github.com/CrivoiCarla/react-gh-pages/tree/bugfix_002_mentionPOSTforSpinner
+
+* https://github.com/CrivoiCarla/react-gh-pages/tree/bugfix_10_SpinnerGetIdEndpoint
 
 
 ## Automation Testing
